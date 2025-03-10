@@ -1,0 +1,1 @@
+function o(p,e,t){if(t||arguments.length===2)for(var r=0,s=e.length,n;r<s;r++)(n||!(r in e))&&(n||(n=Array.prototype.slice.call(e,0,r)),n[r]=e[r]);return p.concat(n||Array.prototype.slice.call(e))}export{o as _};
