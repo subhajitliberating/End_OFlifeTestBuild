@@ -1,0 +1,130 @@
+.pay-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pay-text-center {
+    text-align: center;
+  }
+  
+  .logo-img {
+    max-width: 171px;
+    height: 141px;
+    object-fit: contain;
+  }
+  
+  .pay-pricing-section {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .pay-btn-primary {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  .img-para{
+
+font-size: 16px;
+color: #3a2f49;
+font-weight: 500;
+font-family: "Urbanist";
+  }
+
+  .img-head{
+    font-size: 22px;
+    line-height: 1.2;
+    color: #3a2f49;
+    font-weight: bolder;
+    font-family: "Cormorant Garamond";
+    text-align: left;
+  }
+
+  .prv-b-name{
+    font-size: 40px;
+line-height: 87px;
+color: #4b4258;
+font-weight: 500;
+font-family: "Cormorant Infant";
+text-align: center;
+  }
+
+
+
+
+.prv-b-address{
+  font-size: 18px;
+line-height: 39px;
+color: black;
+font-weight: bold;
+font-family: "Urbanist Roman";
+text-align: center;
+}
+
+.prv-b-address span{
+  color: #af874a;
+}
+
+.pay-location{
+  font-size: 18px;
+  line-height: 1.7;
+  color: #000000;
+  font-weight: bold;
+  font-family: "Urbanist Roman";
+
+}
+
+.pay-row{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.info-he{
+  font-size: 27px;
+line-height: 1.2;
+color: #3a2f49;
+font-weight: 400;
+font-family: "Cormorant Garamond";
+
+}
+
+.price_de{
+  font-size: 40px;
+line-height: 1.2;
+color: #4b4258;
+font-weight: 500;
+font-family: "Cormorant Infant";
+}
+
+.py-price-para{
+  font-size: 18px;
+line-height: 1.7;
+color: #4b4258;
+font-weight: 400 !important;
+font-family: "Cormorant Infant";
+max-width: 300px;
+display: flex;
+justify-content: space-between;
+width: 100%;
+
+}
+
+.py-price-paramy-3 {
+  border-top: 1px solid black;
+  max-width: 300px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
+}

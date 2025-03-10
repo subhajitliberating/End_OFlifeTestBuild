@@ -1,0 +1,102 @@
+.cat-search{
+    font-size: 25px;
+line-height: 1.7;
+color: #132833;
+font-weight: 700;
+font-family: "Cormorant Garamond";
+text-align: left;
+padding: 0px;
+margin: 0px;
+}
+
+.cus-drop-cat{
+  
+    border:  0px;
+    border-bottom: 1px solid black ;
+    background-color:  transparent;
+    outline: none;
+    box-shadow: none !important;
+    border-radius: 0px;
+    
+    padding: 10px 0;
+    font-size: 18px;
+line-height: 1.2;
+color: #3a2f49;
+font-weight: 400;
+font-family: "Cormorant Garamond";
+text-align: left;
+margin-bottom: 12px;
+}
+
+.cus-search-btn-div{
+ width: 80%;
+
+ font-size: 20px;
+line-height: 1.2;
+color: #000000;
+font-weight: 400;
+font-family: "Playfair Display";
+text-align: left;
+
+}
+
+.sarch-cat-btn {
+    border: none;
+    font-size: 20px;
+    line-height: 1.2;
+    color: #000000;
+    font-weight: 400;
+    font-family: "Playfair Display";
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+    border: 1px solid;
+    border-radius: 50px;
+    padding: 2px 20px;
+    /* margin: 5px; */
+}
+.cus-service{
+    position: relative;
+    padding: 40px 0 40px;
+    margin-bottom: 40px ;
+ 
+    font-size: 40px;
+line-height: 1.2;
+color: #132833;
+font-weight: 700;
+font-family: "Cormorant Garamond";
+text-align: left;
+}
+.cus-service::after{
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100px;
+        height: 1px;
+        margin: 0 auto;
+        content: "";
+        background-color: black;
+    
+}
+
+.logo-service{
+    width: 100%;
+    height: 100%;
+
+}
+
+.banner-service{
+    width: 100%;
+    height: 100%;
+}
+
+.add-service p {
+    
+}

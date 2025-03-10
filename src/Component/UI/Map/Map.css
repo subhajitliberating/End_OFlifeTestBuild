@@ -1,0 +1,125 @@
+
+  .ireland-map {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  
+  .map-container {
+    cursor: pointer;
+    width: 100%;
+    max-width: 1000px; /* Adjust maximum width for large screens */
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  /* SVG path hover effect */
+  .svgsamepath:hover {
+    fill: #ffffff !important;
+    stroke: #4caae0 !important;
+    filter: drop-shadow(10px 10px 4px rgba(0,0,0,0.5));
+  }
+  
+  /* Tooltip box styles */
+  #county-name {
+    width: 285px;
+    position: absolute;
+    
+    padding: 13px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 3.5px rgba(255, 255, 255, 0.93);
+    background-image: linear-gradient(0deg, #d8d8d6 0%, #fffeff 100%);
+    border: 1px solid #155c78;
+  
+  }
+  
+  .map-countyName {
+    font-size: 32px;
+    line-height: 1.2;
+    color: #132833;
+    font-weight: 400;
+    font-family: "Cormorant Garamond";
+    text-align: left;
+  }
+  
+  .map-notices,
+  .map-services {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #132833;
+    font-weight: bold;
+    font-family: "Urbanist Roman";
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Responsive Styles */
+  
+  /* Adjust SVG container for smaller screens */
+  @media (max-width: 768px) {
+    .map-container {
+      max-width: 100%; /* Make the map container take full width on tablets */
+      padding: 10px; 
+      overflow-y: scroll;
+      /* Add padding on smaller screens */
+    }
+  
+    #county-name {
+      width: 250px; /* Reduce width of tooltip */
+      font-size: 14px; /* Adjust font size */
+    }
+  
+    .map-countyName {
+      font-size: 24px; /* Adjust font size of county name */
+    }
+  
+    .map-notices,
+    .map-services {
+      font-size: 14px; /* Adjust font size for notices and services */
+    }
+  }
+  
+  /* Further adjustments for mobile screens */
+  @media (max-width: 480px) {
+    .map-container {
+      overflow-y: scroll;
+      padding: 5px; /* Reduce padding on mobile */
+    }
+  
+    #county-name {
+      width: 200px; /* Further reduce width for mobile */
+      font-size: 12px; /* Further reduce font size */
+    }
+  
+    .map-countyName {
+      font-size: 18px; /* Adjust font size of county name */
+    }
+  
+    .map-notices,
+    .map-services {
+      font-size: 12px; /* Adjust font size for notices and services */
+    }
+  }
+
+  .map_mini {
+    width: 584px;
+    height: 1000px;
+   
+    position: absolute;
+    padding: 13px;
+    border-radius: 15px;
+    background: transparent;
+    border: 1px solid #155c78;
+   
+    left: 7%;
+}
+
+/* Example styles for Tooltip */
+.react-tooltip {
+  background-color: #4caae0;
+  color: black;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+}

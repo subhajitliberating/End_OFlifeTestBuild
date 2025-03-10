@@ -1,0 +1,109 @@
+.death-notice-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-header {
+    margin-bottom: 30px;
+  }
+  
+  .form-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 8px;
+  }
+  
+  .form-subtitle {
+    color: #718096;
+    font-size: 14px;
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+  }
+  
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 15px;
+  }
+  
+  .flat-input, .flat-select {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    height: 40px;
+  }
+  
+  .flat-input:focus, .flat-select:focus {
+    border-color: #4299e1;
+    box-shadow: none;
+  }
+  
+  .add-button {
+    color: #4299e1;
+    font-size: 14px;
+    padding: 0;
+    text-decoration: none;
+  }
+  
+  .add-button:hover {
+    text-decoration: underline;
+  }
+  
+  .photo-upload-box {
+    border: 2px dashed #cbd5e0;
+    border-radius: 4px;
+    height: 120px;
+    position: relative;
+  }
+  
+  .upload-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .plus-icon {
+    font-size: 24px;
+    color: #a0aec0;
+  }
+  
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .btn-remove {
+    color: #e53e3e;
+    font-size: 20px;
+    padding: 0 8px;
+    line-height: 1;
+  }
+  
+  .church-map-fields {
+    background-color: #f7fafc;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+
+
+  .bs-icon{
+
+    margin-left:8px ;
+    color: #1a202c,
+  
+  }
+.bs-icon:hover{
+  color: #b89422;
+  cursor: pointer;
+}

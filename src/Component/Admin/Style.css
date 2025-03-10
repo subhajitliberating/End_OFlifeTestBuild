@@ -1,0 +1,474 @@
+
+.admin-title{
+    font-family: "Cormorant Garamond";
+}
+
+
+.admin-settings-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .settings-section {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .section-title {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+    font-family: "Cormorant Garamond";
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+    font-weight: 500;
+  }
+  
+  .prime-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .prime-input:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .prime-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .prime-btn.primary {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .prime-btn.success {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .prime-btn.danger {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .prime-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .duration-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .duration-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .duration-item {
+    background: #f8f9fa;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .method-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2ecc71;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .method-name {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .prime-select {
+    padding: 0.75rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background: white;
+    font-size: 1rem;
+    width: 200px;
+  }
+  
+  .setting-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .notification-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+
+  .modal-header{
+    font-family: "Cormorant Garamond" !important ;
+    background-color: #f8f9fa !important
+   
+  }
+
+  .modal-footer{
+    background-color:  #f8f9fa !important ;
+  }
+
+
+
+  .invoice-preview {
+    background-image: url('../../assets//invoicebackground.png');
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid black;
+   
+}
+
+.invoice-preview table {
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.invoice-preview table th {
+  font-family: "Cormorant Garamond" !important ;
+    padding: 12px;
+    border: 1px solid floralwhite;
+    background-color: black !important;
+}
+
+
+.invoice-preview table td {
+  font-family: "Cormorant Garamond" !important ;
+    padding: 12px;
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+.invoice-preview .text-end {
+  font-family: "Cormorant Garamond" !important ;
+    text-align: right;
+}
+
+.table-dark {
+    background-color: #343a40;
+    color: white;
+    background-color: black !important;
+}
+
+.mat{
+  margin-bottom: 0px !important ;
+}
+
+
+
+:root {
+  --modal-primary: #4361ee;
+  --modal-danger: #dc3545;
+  --modal-warning: #ff9f1c;
+  --modal-success: #2ec4b6;
+  --modal-backdrop: rgba(0, 0, 0, 0.6);
+  --modal-radius: 12px;
+  --modal-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--modal-backdrop);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.custom-modal__container {
+  width: 95%;
+  max-width: 500px;
+  margin: 1rem;
+}
+
+.custom-modal__content {
+  background: white;
+  border-radius: var(--modal-radius);
+  box-shadow: var(--modal-shadow);
+  transform: translateY(0);
+  animation: modalSlideIn 0.3s ease;
+}
+
+.custom-modal__header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.custom-modal__content--primary .custom-modal__header {
+  background: var(--modal-primary);
+  color: white;
+  border-radius: var(--modal-radius) var(--modal-radius) 0 0;
+}
+
+.custom-modal__content--danger .custom-modal__header {
+  background: var(--modal-danger);
+  color: white;
+}
+
+.custom-modal__content--warning .custom-modal__header {
+  background: var(--modal-warning);
+  color: white;
+}
+
+.custom-modal__icon {
+  font-size: 1.5rem;
+}
+
+.custom-modal__title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.custom-modal__close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: inherit;
+  cursor: pointer;
+  margin-left: auto;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.custom-modal__close:hover {
+  opacity: 1;
+}
+
+.custom-modal__body {
+  padding: 2rem 1.5rem;
+}
+
+.custom-modal__input-group {
+  margin-bottom: 1.5rem;
+}
+
+.custom-modal__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.custom-modal__input {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.custom-modal__input:focus {
+  outline: none;
+  border-color: var(--modal-primary);
+}
+
+.custom-modal__input-prefix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.custom-modal__currency {
+  position: absolute;
+  left: 1rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.custom-modal__input-prefix .custom-modal__input {
+  padding-left: 2.5rem;
+}
+
+.custom-modal__select-wrapper {
+  position: relative;
+}
+
+.custom-modal__select {
+  appearance: none;
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.custom-modal__select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-modal__delete-content {
+  text-align: center;
+}
+
+.custom-modal__delete-icon {
+  font-size: 3rem;
+  color: var(--modal-danger);
+  margin-bottom: 1.5rem;
+}
+
+.custom-modal__delete-text {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.custom-modal__footer {
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal__btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.custom-modal__btn--primary {
+  background: var(--modal-primary);
+  color: white;
+}
+
+.custom-modal__btn--danger {
+  background: var(--modal-danger);
+  color: white;
+}
+
+.custom-modal__btn--warning {
+  background: var(--modal-warning);
+  color: white;
+}
+
+.custom-modal__btn--secondary {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.custom-modal__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

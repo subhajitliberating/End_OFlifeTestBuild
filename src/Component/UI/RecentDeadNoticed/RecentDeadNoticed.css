@@ -1,0 +1,237 @@
+.slider-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* .card-custom {
+  background-image: url('/src/assets/cardsvg.svg');
+  padding: 10px;
+  text-align: center;
+  width: 280px !important;
+
+  min-height: 410px;
+  background-size: 100% 100%;
+
+  border: none !important;
+  display: flex !important;; 
+  flex-direction: column !important;;
+
+  align-items: center !important;
+
+}  */
+
+.card-custom {
+  background-image: url('/src/assets/cardsvg.svg');
+  padding: 10px;
+  text-align: center;
+  /* width: 280px !important; */
+  min-height: 410px;
+  background-size: 100% 100%;
+  border: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  box-shadow: 0px 0px 14px 0px #c2c2c2;
+}
+
+.img-div {
+  border-radius: 50%;
+  margin: 40px;
+  width: 180px;
+  overflow: hidden;
+  height: 180px;
+     border: 2px solid #d0b887; 
+}
+
+.card-img {
+  padding: 15px;
+  width: 150px;
+  height: 100%;
+  /* border: 2px solid #d0b887; */
+  border-radius: 50% !important;
+}
+
+.card-name {
+  font-size: 24px;
+  line-height: 1.2;
+  color: #132833;
+  font-weight: 700;
+  font-family: "Cinzel";
+  text-align: center;
+}
+
+.card-text {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #132833;
+  font-weight: 300;
+  font-family: "Urbanist";
+  text-align: center;
+}
+
+.recent-death-notice{
+background-color: #f8f8f8;;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+
+.recent-death-notice-heading{
+
+  font-size: 41px;
+line-height: 1.2;
+color: #000000;
+font-weight: 500;
+font-family: "Cinzel";
+text-align: center;
+margin: 45px;
+border-bottom: 1px solid black;
+}
+
+
+
+.slick-dots {
+position: absolute;
+bottom: -65px !important;
+display: block;
+width: 100%;
+padding: 0;
+margin: 0;
+list-style: none;
+text-align: center;
+}
+
+
+.slick-dots li {
+margin: 0 5px;
+}
+
+.slick-dots li button {
+background-color: transparent;  
+border: none;
+width: 10px;  
+height: 10px;
+border-radius: 50%;
+background-color: rgba(0, 0, 0, 0.5);  
+transition: background-color 0.3s ease;
+}
+
+.slick-dots li.slick-active button {
+background-color: rgba(0, 0, 0, 1); 
+}
+
+
+/* General Slider Container */
+
+
+
+
+
+/* ------------------ Responsive Styles ------------------ */
+
+/* For Devices with width less than or equal to 1024px */
+@media (max-width: 1024px) {
+.recent-death-notice-heading {
+  font-size: 30px; /* Smaller font size for headings */
+  margin: 30px 0;
+}
+
+.slider-container {
+  padding: 15px 0;
+}
+
+.card-custom {
+  padding-top: 40px;
+  width: 250px; /* Adjust card width for tablets */
+  min-height: 380px; /* Reduce card height */
+}
+
+.card-name {
+  font-size: 20px; /* Smaller font size for names */
+}
+
+.card-text {
+  font-size: 18px; /* Smaller font size for text */
+}
+
+.img-div {
+  margin: 20px;
+  width: 150px;
+  height: 150px;
+}
+
+.slick-dots {
+  bottom: -40px; /* Move dots closer to cards */
+}
+}
+
+/* For Mobile Devices with width less than or equal to 768px */
+@media (max-width: 768px) {
+.recent-death-notice-heading {
+  font-size: 24px;
+  margin: 25px 0;
+}
+
+.slider-container {
+  padding: 10px 0;
+}
+
+.card-custom {
+  padding-top: 40px;
+  width: 200px;
+  min-height: 300px;
+}
+.card-name {
+  font-size: 18px; /* Smaller font size for names */
+}
+
+.card-text {
+  font-size: 16px; /* Smaller font size for text */
+}
+
+.img-div {
+  margin: 10px;
+}
+
+.slick-dots {
+  bottom: -30px; /* Move dots closer */
+}
+}
+
+/* For Mobile Devices with width less than or equal to 480px */
+@media (max-width: 480px) {
+.recent-death-notice-heading {
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.slider-container {
+  padding: 10px 10%;
+}
+
+.card-custom {
+  padding: 35px;
+  /* width: 180px; */
+  min-height: 320px;
+}
+
+.card-name {
+  font-size: 16px; /* Smaller font size for names */
+}
+
+.card-text {
+  font-size: 14px; /* Smaller font size for text */
+}
+
+.img-div {
+  margin: 10px;
+}
+
+.slick-dots {
+  bottom: -25px; /* Adjust dots position */
+}
+}

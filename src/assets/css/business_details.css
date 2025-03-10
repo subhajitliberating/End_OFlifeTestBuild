@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+:root{
+    --primary-color:#132833;
+    --text-color: #7f8487;
+    --sub_color:#3a2f49;
+    --primary_font: "Cormorant Garamond", serif;
+    --subfont: "Urbanist", serif;
+    --iconfont: "Playfair Display", serif;
+    --cinzel: "Cinzel", serif;
+}
+.business_details{padding: 40px 0;}
+.heading_page{padding-bottom: 15px;position: relative;}
+.heading_page h1{font-family:var(--primary_font); font-weight: 700; font-size:55px; color: var(--primary-color);position: relative;}
+.heading_page:after{content:''; width:20%; height: 1px; background-color: #5e5669; position: absolute; left: 0; right:0; bottom: 0; margin: auto; }
+
+.business_details_box{margin-top: 40px; border-radius: 2px; background-color: #fff; padding:50px 70px; box-shadow:0px 0px 20px 3px #e1e6ee;  margin-bottom: 50px;}
+.business_deatils span{color: var(--text-color); font-family: var(--subfont); font-size: 13px; text-transform: capitalize; line-height: 1.2; font-weight: 600; margin-bottom: 7px; display: block;}
+.business_deatils p{color: var(--primary-color); font-size: 37px; line-height: 48px; font-weight: 600; font-family: var(--primary_font);margin-bottom: 10px;}
+.business_deatils ul, .contact_info ul{padding-left:0; list-style: none;}
+.business_deatils ul li, .contact_info ul li a {color: var(--text-color); font-family: var(--subfont); font-size: 14px; line-height: 20px;  position: relative;}
+
+
+.business_box_header{padding-bottom: 10px; border-bottom:1px solid #000000;}
+
+.contact_info{padding-left: 50px; border-left: 1px solid #000000;}
+.contact_info ul{margin: 0;}
+.contact_info ul li{padding-bottom: 10px;}
+.contact_info ul li a{text-decoration: none; font-size: 15px; padding-left: 0; transition: all 0.3s ease-in;}
+.contact_info ul li a:hover{color: var(--primary-color); transition: all 0.3s ease-in;}
+.contact_info ul li a i{font-size: 19px; margin-right: 15px;}
+
+.business_content_box{padding-top: 25px;}
+.image_business img{max-height: 400px;width: 100%;}
+.content_business{padding: 25px 0 10px;}
+.content_business p{font-size: 16px; color: var(--text-color); line-height: 23px; font-family: var(--subfont);}
+.content_business p span{display: block; color:var(--text-color); font-size: 22px; line-height: 30px; font-family:var(--subfont); font-weight: 700;}
+.content_business a{font-size: 18px; color:#4b4258; line-height: 24px; font-family: var(--subfont); text-decoration: underline; font-style: italic; font-weight: 800; margin-bottom: 15px; display: block;}
+.content_business p b{display: block;}
+
+.add_service{max-width:663px;padding: 73px 135px 58px; border:1px solid #155c78; border-radius: 23px; margin: 25px auto; text-align: center;}
+.add_service h3{font-family: var(--primary_font); font-weight: 500; text-transform: capitalize; font-size: 37px; line-height: 45px;}
+.add_service p{font-size: 16px; line-height: 24px; font-family: var(--subfont); color: var(--text-color); font-weight: 500;}
+.link_btn{color: #000; font-family: var(--primary_font); text-transform: capitalize; padding: 15px 25px;display: flex; justify-content: space-between; width: 70%; margin: auto; border: 1px solid #132833; border-radius: 50px; text-decoration: none;
+    font-size: 20px; line-height: 23px; text-transform: capitalize; font-weight: 500; align-items: center; margin-top: 40px; transition: all 0.3s ease-in;
+}
+.link_btn span{font-family: var(--iconfont); font-size: 37px; line-height: 30px; transition: all 0.3s ease-in;}
+.link_btn:hover{background-color: #000; color:#fff; transition: all 0.3s ease-in;}
+.link_btn:hover span{color: #fff; transition: all 0.3s ease-in;}

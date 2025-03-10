@@ -1,0 +1,223 @@
+
+
+
+.death-notices-container {
+  width: 100%; /* Set width to 100% for responsiveness */
+  max-width: 400px; /* Keep max-width at 400px */
+  margin: 20px auto;
+  padding: 50px; /* Reduce padding for smaller screens */
+  min-height: 700px;
+  background-image: url('../../../assets/br.webp');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 12px;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+.death-notices-container h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+  border-bottom: 1px solid #d0b887;
+  padding-bottom: 10px;
+}
+
+/* Scrollable container */
+.notices-scroll {
+  max-height: 550px;
+  overflow-y: auto;
+  padding-right: 10px;
+
+  scrollbar-color: #d0b887 #fffaf0;
+}
+
+.notices-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.notices-scroll::-webkit-scrollbar-thumb {
+  background: #d0b887;
+  border-radius: 20px;
+  border: 3px solid black;
+}
+
+.notices-scroll::-webkit-scrollbar-track {
+  background: #fffaf0;
+  border-radius: 20px;
+  margin: 5px 0;
+}
+
+/* Notice card styling */
+.notice-card {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px;
+  /* border: 1px solid #d0b887; */
+  /* border-radius: 8px; */
+  /* background-color: #fff; */
+  text-align: justify;
+}
+.notice-card:hover {
+  background-color: #fdf2e3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Notice card image */
+.notice-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #d0b887;
+  margin-right: 15px;
+  padding: 5px;
+}
+
+.notice-details h4 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+  font-family: 'Cormorant Garamond';
+  font-weight: 400;
+}
+
+.notice-details p {
+  margin: 5px 0 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #666;
+  font-family: 'OUTFIT';
+}
+/* Main death notices section */
+.death-notices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 124px;
+  margin-top: 120px;
+  position: relative;
+  z-index: 99;
+}
+
+/* Header for death notices */
+.death-header {
+  width: 76%;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #000000;
+  font-weight: 700;
+  font-family: "Cormorant Garamond";
+  text-align: left;
+  border-bottom: 1px solid black;
+  padding-bottom: 20px;
+
+}
+
+/* -------------------- Media Queries for Responsiveness -------------------- */
+
+/* For Tablets and Small Desktops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .death-notices-container {
+    padding: 30px 20px;
+  }
+
+  .death-notices {
+    margin-left: 30px;
+    margin-top: 80px;
+    width: 90%; /* Take up more width */
+  }
+
+  .death-header {
+    font-size: 26px;
+  }
+
+  .death-notices-container h2 {
+    font-size: 18px;
+  }
+
+  .notice-card {
+    margin: 30px 24px;
+    padding: 8px;
+  }
+
+  .notice-details h4 {
+    font-size: 14px;
+  }
+
+  .notice-details p {
+    font-size: 12px;
+  }
+}
+
+/* For Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .death-notices-container {
+    padding: 25px 15px;
+    min-height: 650px; /* Adjust min-height */
+  }
+
+  .death-notices {
+    margin-left: 20px;
+    margin-top: 60px;
+    width: 95%; /* Further reduce width */
+  }
+
+  .death-header {
+    font-size: 24px;
+  }
+
+  .death-notices-container h2 {
+    font-size: 16px;
+  }
+
+  .notice-card {
+    margin: 30px 40px;
+    padding: 8px;
+}
+
+  .notice-details h4 {
+    font-size: 14px;
+  }
+
+  .notice-details p {
+    font-size: 12px;
+  }
+}
+
+/* For Mobile Devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .death-notices-container {
+    padding: 88px 40px;
+    min-height: 550px; /* Adjust min-height */
+  }
+
+  .death-notices {
+    margin-left: 10px;
+    margin-top: 40px;
+    width: 100%; /* Take up full width on mobile */
+  }
+
+  .death-header {
+    font-size: 22px;
+  }
+
+  .death-notices-container h2 {
+    font-size: 14px;
+  }
+
+  .notice-card {
+    margin: 10px 0px;
+    padding: 6px;
+}
+
+  .notice-details h4 {
+    font-size: 12px;
+  }
+
+  .notice-details p {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,365 @@
+
+
+/* General Container for Service List */
+.service-list {
+  background-color: #faf3eb;
+  padding-top: 380px !important;
+  padding-bottom: 20px !important;
+}
+
+/* Service Card */
+.service-card {
+  margin-bottom: 40px;
+  display: flex;
+  width: 270px;
+  height: 320px;
+  filter: drop-shadow(0px 14px 35px rgba(7, 49, 118, 0.26));
+  background-color: #ffffff;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Service Card */
+.main-service-card {
+  flex-direction: column;
+  display: flex;
+  width: 240px;
+  height: 280px;
+  background-color: rgba(248, 248, 248, 0);
+  border: 1px solid rgba(21, 92, 120, 0.47);
+  align-items: center;
+}
+
+/* Card Image */
+.card-img-top {
+  width: 80px;
+  height: 80px;
+}
+
+/* Service Card Button */
+.service-card-btn {
+  display: flex;
+ 
+  justify-content: space-around;
+  align-items: center;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #b88e4f;
+  font-weight: 400;
+  font-family: "Cormorant Garamond";
+  text-align: center;
+  border: none;
+  background: transparent;
+}
+
+/* Service Card Body */
+.service-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.srevice-card-title {
+  font-size: 18px;
+  color: #132833;
+  font-weight: bold;
+  font-family: "Cormorant Garamond";
+  text-align: center;
+}
+
+/* Service Card Body Styling */
+.service-card-body {
+
+  min-height: 200px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Notice Board Container */
+.notice-bord-container {
+  background-image: url('/src/assets/backimg.png');
+  position: absolute;
+  background-size: auto;
+  background-repeat: no-repeat;
+  min-height: 500px;
+  top: -250px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+/* Noticeboard Styles */
+.noticebord {
+  position: relative;
+}
+
+/* Service Offer Text */
+.service-offer {
+  font-size: 11px;
+  color: #7f8487;
+  font-weight: 400;
+  font-family: "Urbanist";
+  text-align: center;
+}
+
+/* Noticeboard Title */
+.noticeboard-title {
+  font-size: 59px;
+  line-height: 1.2;
+  color: #f8f8f8;
+  font-weight: 500;
+  font-family: "Cinzel";
+  text-align: center;
+}
+
+/* Noticeboard Paragraph */
+.noticeboard-para {
+  font-size: 20px;
+  color: #f8f8f8;
+  font-weight: 400;
+  font-family: "Urbanist";
+  text-align: center;
+}
+
+/* Noticeboard Body */
+.noticeboard-body {
+  text-align: justify;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 5% 21%;
+  justify-content: space-around;
+}
+
+.noticeboard-body::after {
+  position: absolute;
+  top: 50%;
+  /* bottom: 0; */
+  /* right: 0; */
+  left: 50%;
+  content: "";
+  background-image: url('/src/assets/mainborderimg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+
+/* Noticeboard Button */
+.noticeboard-btn {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #f8f8f8;
+  font-weight: 500;
+  font-family: "Cinzel";
+  text-align: left;
+  border: none;
+  background: transparent;
+ 
+}
+button.noticeboard-btn {
+  z-index: 9;
+}
+
+/* Service Our Text */
+.service-our-text {
+  font-size: 35px;
+  line-height: 1.2;
+  color: #000000;
+  font-weight: 400;
+  font-family: "Cormorant Garamond";
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+/* View Link */
+.view-link {
+  font-size: 20px;
+  line-height: 57px;
+  color: #000000;
+  font-weight: 400;
+  font-family: "Cormorant Garamond";
+  text-align: left;
+  text-decoration: none;
+}
+
+/* Service Button Paragraph */
+.service-btn-para {
+  margin: -9px 0 0;
+  padding: 0px;
+  margin-left: 15px;
+  font-size: 40px;
+  font-family: "Playfair Display";
+}
+
+/* ------------------ Responsive Styles ------------------ */
+
+/* For Tablets (Max-width: 1024px) */
+@media (max-width: 1024px) {
+  .service-card {
+    padding: 5px;
+    width: 200px;
+    height: 250px;
+    /* margin: 0px -16px; */
+   
+}
+
+   .noticeboard-body{
+    height: 310px;
+    
+    }
+    .service-card-body {
+      padding: 16px;
+      min-height: 160px;
+  }
+
+  .main-service-card {
+    width: 220px; /* Adjust width */
+    height: 250px; /* Adjust height */
+  }
+
+  .service-card-btn {
+    font-size: 16px; /* Adjust font size */
+  }
+
+  .service-our-text {
+    font-size: 30px; /* Adjust font size */
+  }
+
+ 
+
+  .service-btn-para {
+    font-size: 35px; /* Adjust button paragraph font size */
+  }
+
+  .noticeboard-title {
+    font-size: 30px; /* Adjust title size */
+  }
+
+  .noticeboard-para {
+    font-size: 18px; /* Adjust paragraph font size */
+  }
+  .noticeboard-btn{
+    margin-bottom: 10px;
+  }
+}
+
+/* For Mobile Devices (Max-width: 768px) */
+@media (max-width: 768px) {
+  .cus-mt-0{
+    margin-top: 100px;
+  }
+  .service-card {
+    width: 90%;
+    height: 290px;
+    margin: 12px auto;
+}
+  .noticeboard-body{
+  height: 210px;
+  
+  }
+
+  .main-service-card {
+    width: 200px; /* Adjust card width */
+    height: 230px; /* Adjust card height */
+    margin: 12px;
+  }
+
+  .service-card-btn {
+    font-size: 15px; /* Smaller font size for buttons */
+  }
+
+  .service-our-text {
+    font-size: 25px; /* Smaller font size for the service text */
+  }
+
+  .service-card-body {
+    padding: 5px;
+    min-height: 140px; /* Adjust body height */
+  }
+
+  .notice-bord-container {
+    top: -150px; /* Adjust the position of the notice board */
+    min-height: 200px; /* Adjust notice board size */
+  }
+
+  .noticeboard-title {
+    font-size: 20px; /* Adjust title size */
+  }
+
+  .noticeboard-para {
+    font-size: 14px; /* Adjust paragraph font size */
+  }
+
+  .service-btn-para {
+    font-size: 14px; /* Adjust button paragraph font size */
+  }
+
+  .service-list {
+    background-color: #faf3eb;
+    padding-top: 150px !important;
+    padding-bottom: 20px !important;
+  }
+  .cus{
+    display: block;
+  }
+}
+
+/* For Mobile Devices (Max-width: 480px) */
+@media (max-width: 480px) {
+
+  .cus-block{
+    display: block !important;
+  }
+  .service-card {
+    
+    height: 290px;
+    margin: 12px auto;
+}
+  .noticeboard-body{
+  height: 210px;
+  
+  }
+
+  .service-card-btn {
+    font-size: 14px; /* Further reduce font size */
+  }
+
+  .service-our-text {
+    font-size: 22px; /* Adjust font size for small screens */
+  }
+
+  .service-card-body {
+    padding: 8px;
+    min-height: 144px;
+}
+
+  .noticeboard-title {
+    margin: 0px;
+    font-size: 15px; /* Adjust title font size */
+  }
+
+  .noticeboard-para {
+    padding: 0px 14px;
+    font-size: 10px;
+}
+
+  .service-btn-para {
+    font-size: 28px; /* Adjust button paragraph font size */
+  }
+  .noticeboard-btn{
+    font-size: 12px;
+   
+  }
+  .noticeboard-body{
+    margin: 2px;
+  }
+}

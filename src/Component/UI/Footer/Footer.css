@@ -1,0 +1,234 @@
+/* .footer-container {
+ 
+    padding: 0 auto
+    ;
+    background-image: url('../../../assets/footerbackground.jpg');
+    background-size: cover;
+
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  a:hover {
+    color: #ccc;
+  }
+  .custom-row{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+
+  }
+
+  .quick-links-div{
+    width: 17%;
+  }
+  .service-link-div{
+    width: 47%;
+  }
+  .death-links{
+    width: 17%;
+  }
+  .county-links{
+    width: 17%;
+  }
+  .footer-main{
+   width: 100%;
+  }
+
+  .footer-links-heading{
+    width: 90%;
+    font-size: 26px;
+line-height: 1.5;
+color: #f8f8f8;
+font-weight: 400;
+font-family: "Cormorant Garamond";
+text-align: left;
+border-bottom: 1px solid #f8f8f8;
+  }
+
+  .footer-link{
+    font-size: 18px;
+letter-spacing: 0px;
+line-height: 1.5;
+color: #f8f8f8;
+font-weight: 300;
+font-family: "Outfit";
+text-align: left;
+padding-bottom: 20px;
+  }
+
+  .custom-footer-logo{
+    width: 320px;
+    height: 120px;
+    margin: 50px;
+  } */
+
+
+  .footer-container {
+    padding: 20px 0;
+    background-image: url('../../../assets/footerbackground.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .footer-logo {
+    max-width: 100px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  a:hover {
+    color: #ccc;
+  }
+  
+  .custom-row {
+    display: flex;
+    justify-content: space-around;
+ 
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .custom-row.left {
+ justify-content: left !important;
+  }
+  .quick-links-div,
+  .service-link-div,
+  .death-links,
+  .county-links {
+    flex: 1;
+    max-width: 200px;
+    min-width: 150px;
+    padding: 10px;
+  }
+  
+  .service-link-div {
+    max-width: 500px;
+  }
+  
+  .footer-main {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .footer-links-heading {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #f8f8f8;
+    font-weight: 400;
+    font-family: "Cormorant Garamond";
+    text-align: left;
+    border-bottom: 1px solid #f8f8f8;
+    margin-bottom: 15px;
+  }
+  
+  .footer-link {
+    font-size: 1rem;
+    letter-spacing: 0;
+    line-height: 1.5;
+    color: #f8f8f8;
+    font-weight: 300;
+    font-family: "Outfit";
+    text-align: left;
+    padding-bottom: 10px;
+  }
+  
+  .custom-footer-logo {
+    width: 320px;
+    height: 120px;
+    margin: 20px auto;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .custom-row {
+      gap: 15px;
+      padding: 10px;
+    }
+  
+    .quick-links-div,
+    .service-link-div,
+    .death-links,
+    .county-links {
+      max-width: 180px;
+    }
+  
+    .footer-links-heading {
+      font-size: 1.2rem;
+    }
+  
+    .footer-link {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .custom-row {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .quick-links-div,
+    .service-link-div,
+    .death-links,
+    .county-links {
+      width: 100%;
+      max-width: none;
+      text-align: center;
+    }
+  
+    .footer-links-heading {
+      text-align: center;
+    }
+  
+    .footer-link {
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-links-heading {
+      font-size: 1rem;
+    }
+  
+    .footer-link {
+      font-size: 0.8rem;
+    }
+  
+    .custom-footer-logo {
+      width: 280px;
+      height: 100px;
+    }
+  }
+  
+
+  .footerbottom{
+    
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  }
+
+  .liberating_logo_div img {
+    width: 30%;
+  }
+
+  .quick-list-ul{
+    padding: 0px;
+    
+  }
