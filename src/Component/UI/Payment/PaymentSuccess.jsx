@@ -91,6 +91,7 @@ const PaymentSuccess = () => {
             </div>
             <p className="processing-message">{message}</p>
             <Modal message={message} show={showModal} onConfirm={handleNavigation} onCancel={handleNavigation} />
+           
         </div>
     );
 };

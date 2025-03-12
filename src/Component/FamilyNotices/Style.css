@@ -171,7 +171,7 @@
     position: absolute;
     width: 712px;
     height: 596px;
-    background-image: url('/src/assets/f1.png');
+    background-image: url('/src/assets/f1.webp');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -185,7 +185,7 @@
     position: absolute;
     width: 712px;
     height: 596px;
-    background-image: url('/src/assets/f2.png');
+    background-image: url('/src/assets/f2.webp');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -209,7 +209,7 @@
     margin-bottom: 25px;
     padding:0;
     font-weight: 400;
-    opacity: 0.6;
+   
 }
 
 .acknowledgement .user-img {
@@ -253,7 +253,7 @@
 }
 
 .acknowledgement p { 
-    font-family: "Outfit", serif; 
+    font-family: "Outfit"; 
     font-size: 18px;
     line-height: 1.2;
     color: #132833;
@@ -282,7 +282,7 @@
 .user-img::after {
     position: absolute;
     content: ""; 
-    background-image: url('../../assets/photo_frame.png'); 
+    background-image: url('../../assets/photo_frame.webp'); 
     left:0; 
     top:0; 
     background-position: center;

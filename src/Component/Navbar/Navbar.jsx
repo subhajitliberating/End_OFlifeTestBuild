@@ -11,7 +11,7 @@ import { BsFillSave2Fill } from "react-icons/bs";
 
 import { HiUserGroup } from "react-icons/hi2";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { jwtDecode } from "jwt-decode";// Import everything from the jwt-decode module
+import { jwtDecode } from "jwt-decode"
 
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Modal from "../UI/Modal/Modal";
@@ -21,7 +21,7 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const location = useLocation()
   const getCookie = (name) => {
     const cookies = document.cookie;
@@ -60,7 +60,7 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
       }
     }
 
-   
+
   }, [location]);
 
   const handleToggleMenu = () => {
@@ -68,15 +68,13 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
   };
 
 
-  const navigate = useNavigate(); // To redirect the user after logout
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove the cookies
-    // Cookies.remove('auth_token');
-    // Cookies.remove('username');
+
     sessionStorage.removeItem('token');
     navigate('/home')
-    // Refresh the page
+
     window.location.reload(); // This will reload the current page
   };
 
@@ -129,14 +127,14 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
       <div className={`navbar-min  ${isNavbarVisible ? "visible" : "hidden"}`}>
         <div className="nav-center">
           <div className="nav-row">
-            <Link className="min-nav-link" to="#">FAQ</Link>
-            <Link className="min-nav-link" to="#">Practical Information</Link>
-            <Link className="min-nav-link" to="#">Donate</Link>
+            <Link className="min-nav-link" to="faq">FAQ</Link>
+            <Link className="min-nav-link" to="info">Practical Information</Link>
+            <Link className="min-nav-link" to="donate">Donate</Link>
           </div>
 
           <div className="nav-row2">
             <Link className="min-nav-link" to="#">{user}</Link>
-            {!token && (<Link className="min-nav-link" to="login" state={{ user: "user" }}>User Login/Signup</Link>
+            {!token && (<Link className="min-nav-link" to="login" state={{ user: "user" }}>Login/Signup</Link>
             )}
             {token && (
 
@@ -278,17 +276,17 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
           </div>
         )}
 
-        
+
         <div className="icon-box">
           {/* <MdOutlineShoppingCart style={{
             fontFamily: "Cormorant Garamond",
             fontSize: '30px'
           }} /> */}
-        
-            <div className="mobile-user" >
-          
+
+          <div className="mobile-user" >
+
             {!token && (<Link className="min-nav-link" to="login" state={{ user: "user" }} style={{
-              color:'black'
+              color: 'black'
             }}>Login/Signup</Link>
             )}
             {token && (
@@ -358,7 +356,7 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
               </div>
             )}
           </div>
-  
+
 
 
 

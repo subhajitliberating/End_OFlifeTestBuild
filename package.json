@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "ip": "vite --host 192.168.1.15",
+    "ip": "vite --host 192.168.1.18",
     "deploy": "npm run build && git subtree push --prefix dist origin gh-pages",
     "lint": "eslint .",
     "preview": "vite preview"

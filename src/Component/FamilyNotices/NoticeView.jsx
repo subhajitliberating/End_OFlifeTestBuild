@@ -69,7 +69,7 @@ const NoticeView = () => {
           </div>
           <div className="middle-panel">
             <h3 className="acknowledgement-title">{data.name} {data.surname}</h3>
-            <p>{data.county}</p>
+            <p>{data?.county + ' ' + data?.town}</p>
 
           </div>
           <div className="bottom-panel" dangerouslySetInnerHTML={{ __html: data.content }}></div>

@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Footer.css'; // Create a custom CSS file for additional styles
-import logo from '../../../assets/footerlogo.webp'
+import logo from '../../../assets/footerlogo.svg'
 import { Link } from "react-router-dom";
 import liberatingLOgo from '../../../assets/liberatinglogo.webp'
 const Footer = () => {

@@ -6,7 +6,11 @@ import pr from '../../../assets/pr.svg'
 import me from '../../../assets/me.svg'
 import Map from "../Map/Map";
 import DeathNotices from "../DeadNotice/DeathNotices";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const ShortCute = ()=>{
+
+   
  const card = [
 
     {
@@ -38,10 +42,10 @@ const ShortCute = ()=>{
                 <img src={card.icon} alt="icon" className="short-cut-icon"/>
                 <h2 className="short-cut-card-heading">{card.heading}</h2>
                 <p className="short-cut-card-para">{card.para}</p>
-                <button className="short-cut-card-button">{`${card.button}`}
+                <Link to='notworking' className="short-cut-card-button">{`${card.button}`}
 
                     <p className="btn-para">{"->"}</p>
-                </button>
+                </Link>
 
                </div>
                </div>

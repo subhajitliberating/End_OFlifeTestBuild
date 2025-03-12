@@ -6,7 +6,7 @@ import { useSidebar } from "../../Contex/SidebarContext";
 // import logo from '../assets/logo.png'
 import { useNavigate } from "react-router-dom";
 
-const CustomNavbar = ({setToken}) => {
+const CustomNavbar = ({setToken,setRole}) => {
   const { toggleSidebar } = useSidebar();
  const nav = useNavigate()
   return (
@@ -37,6 +37,7 @@ const CustomNavbar = ({setToken}) => {
                 sessionStorage.removeItem('token'),
                 setToken('')
                 nav('/')
+                setRole('null')
               }}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

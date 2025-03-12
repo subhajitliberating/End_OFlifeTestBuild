@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FcGoogle } from "react-icons/fc";
-import { FaSquareFacebook } from "react-icons/fa6";
+
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -59,13 +58,11 @@ const Register = () => {
       return;
     }
 
-    // Log form data before sending
 
-    // Send data to the backend
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}auth/register`, formData);
 
-      setErrorMessage(user + "registered successfully")
+      setErrorMessage(user + " registered successfully")
       setSuccess(true)
       setisModel(true)
 
@@ -131,6 +128,7 @@ const Register = () => {
                         className="form-control"
                         placeholder="Enter your Password"
                         required
+                        minLength={8}
                       />
                     </div>
 
@@ -155,17 +153,6 @@ const Register = () => {
                 </div>
               </form>
 
-              {/* <div className="social-login">
-                <p className="social-login-para">Or login in with:</p>
-                <div className="social-login-btn">
-                  <button onClick={handelgooglelogin} className="google-link">
-                    <FcGoogle size={34} /> Log In With Google
-                  </button>
-                  <Link className="google-link">
-                    <FaSquareFacebook size={34} /> Log In With Facebook
-                  </Link>
-                </div>
-              </div> */}
 
               <div className="register-div">
                 <h4>Already have an account? </h4>

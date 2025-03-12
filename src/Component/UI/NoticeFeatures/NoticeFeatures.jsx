@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ob from '../../../assets/ob.svg'
 import pr from '../../../assets/pr.svg'
 import me from '../../../assets/me.svg'
+
 const NoticeFeatures = ()=>{
     const card = [
 
@@ -53,10 +54,10 @@ const NoticeFeatures = ()=>{
                     <img src={card.icon} alt="icon" className="short-cut-icon"/>
                     <h3 className="short-cut-card-heading">{card.heading}</h3>
                     <p className="short-cut-card-para">{card.para}</p>
-                    <button className="short-cut-card-button">{`${card.button}`}
+                    <Link to="/notworking" className="short-cut-card-button">{`${card.button}`}
     
                         <p className="btn-para">{"->"}</p>
-                    </button>
+                    </Link>
     
                    </div>
                    </div>

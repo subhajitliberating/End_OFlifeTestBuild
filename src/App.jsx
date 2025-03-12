@@ -35,6 +35,10 @@ import DeathNoticeList from "./Component/User/DeathNoticesList";
 import AdminSetting from "./Component/Admin/AdminSetting";
 import AdminInvoice from "./Component/Admin/AdminInvioce";
 import MyServiceList from "./Component/User/MyServiceList";
+import FAQ from "./Component/Subpage/Faq";
+import Donate from "./Component/Subpage/Donate";
+import PracticalInformation from "./Component/Subpage/PracticalInformation";
+import UnderConstruction from "./Component/Subpage/UnderConstruction";
 import { useEffect } from "react";
 function App() {
   const [user, setUser] = useState(null);
@@ -61,7 +65,12 @@ function App() {
           <Route path="" element={<Home setToken={setToken} setUser={setUser} setRole={setRole} token={token} role={role} />} />
           <Route path="home" element={<Home />} />
           <Route path="login" element={<Login setUser={setUser} setToken={setToken} />} />
+          <Route path="forgetpassword" element={<Login/>}/>
           <Route path="register" element={<Register />} />
+          <Route path="faq" element={<FAQ/>}/>
+          <Route path="donate" element={<Donate/>}/>
+          <Route path="info" element={<PracticalInformation/>}/>
+          <Route path="notworking" element={<UnderConstruction/>}/>
           {/* <Route path="service-directory" element={<ServiceDirector/>}/>
           <Route path="service-list" element={<ServiceList token={token} role={role}/>}/>
           <Route path="service-single" element={<ServiceSingle token={token} role={role}/>}/> */}
@@ -101,7 +110,7 @@ function App() {
 {role === 'admin' && (
 
 
-<Route path="admin" element={<Admin nav={isNavbarVisible} />}>
+<Route path="admin" element={<Admin nav={isNavbarVisible} setToken={setToken}setRole={setRole} />}>
             
             <Route path="dashboard" element={<AdminDashboard token={token} />} />
             <Route path="notices" element={<AdminNotices token={token} />} />

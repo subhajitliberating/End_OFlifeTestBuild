@@ -103,7 +103,7 @@ border: 3px solid #414248;
 .form-check {
     justify-content: space-between;
     flex-direction: row;
-    display: flex;
+    display: flex !important;
     align-items: center;
     border-bottom: 1px solid black;
     /* display: block; */
@@ -118,8 +118,8 @@ border: 3px solid #414248;
 
 .form-check-input:checked {
   
-    background-color: black;
-    border: 1px solid #7c7458;;
+    background-color: black !important;
+    border: 1px solid #7c7458 !important;;
 
 }
 
@@ -322,21 +322,7 @@ button.link_btn p span {
 }
 
 
-/* select.form-control,
-		input.form-control {
-			font-family: "Cormorant Garamond";
-			font-size: 17px;
-			line-height: 1.2;
-			font-weight: 400;
-			color: #3a2f49;
-			margin: 0;
-			padding: 15px 0;
-			border: 0;
-			border-bottom: 1px solid #000;
-			border-radius: 0;
-			outline: none;
-			box-shadow:none;
-		} */
+
 
         select.form-control,
 		input.form-control {
@@ -385,11 +371,11 @@ button.link_btn p span {
             width: 100%;
            margin: 0;
         }
-       .cus-from-butt {
+       /* .cus-from-butt {
 			color: #666;
 			text-transform: capitalize;
 			padding: 15px 25px;
-			/* border: 1px solid #000; */
+			
 			border-radius: 50px;
 			text-decoration: none;
 			font-size: 20px !important;
@@ -406,11 +392,31 @@ button.link_btn p span {
 			background: none;
 			font-family: var(--primary_font);
             font-weight: 500;
-		}
+		} */
+
+    .cus-from-butt {
+      color: #666 !important;
+      padding: 15px 25px !important;
+      border-radius: 50px !important;
+      text-decoration: none;
+      font-size: 20px!important;
+      line-height: 1.2;
+      text-transform: capitalize;
+      margin-top: 10px !important;
+      transition: all .3s ease-in;
+      max-width: 305px !important;
+      width: 100%;
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      background: none !important;
+      font-family: var(--primary_font) !important;
+      font-weight: 500 !important;
+  }
 
         .cus-from-butt:hover{
-			background: #000;
-			color:#fff;
+			background: #000 !important;
+			color:#fff !important;
 		}
 
         .photo-upload-section {
@@ -1141,7 +1147,7 @@ text-align: center;
   /* Responsive images */
   .upload-preview {
     max-width: 100%;
-    height: auto;
+ 
   }
   
   /* Flexible grid layouts */
@@ -1149,13 +1155,7 @@ text-align: center;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
   
-  /* Touch-friendly elements */
-  /* button,
-  input[type="checkbox"],
-  .form-check-label {
-    min-height: 40px;
-    padding: 8px 12px;
-  } */
+
   
 
   /* Hide elements on mobile */

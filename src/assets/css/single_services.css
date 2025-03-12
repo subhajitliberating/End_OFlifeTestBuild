@@ -56,7 +56,7 @@
 .link_btn:hover{background-color: #000; color:#fff; transition: all 0.3s ease-in;}
 .link_btn:hover span{color: #fff; transition: all 0.3s ease-in;}
 @media(min-width:1365px){
-    .container{max-width:1309px;}
+    .container{max-width:1309px !important;}
 }
 
   .heading_page p{ font-family: var(--cinzel); font-weight: 500; font-size:40px; line-height:50px; text-transform: capitalize; position: relative;}

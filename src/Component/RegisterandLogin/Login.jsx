@@ -3,19 +3,22 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './Style.css';
 
-import axios from "axios"; // Don't forget to import axios
+import axios from "axios"; 
 import Modal from '../UI/Modal/Modal'
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const location = useLocation();
-  const user = location.state?.user;  // Get user data passed via Link
+  const user = location.state?.user;  
+  const forget =  location.state?.forget
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: user   // Set the user from location or default to empty string
+    role: user,
+    confirm:""
+
   });
 
   const [isModel, setisModel] = useState(false)
@@ -27,7 +30,7 @@ const Login = () => {
     if (user) {
 
     }
-    // Update formData if user data passed via location state is available
+   
     if (user) {
       setFormData(prevData => ({
         ...prevData,
@@ -52,7 +55,22 @@ const Login = () => {
 
     try {
       let response
-      if (user === "admin") {
+      if (user  && forget) {
+
+
+        response = await axios.put(`${import.meta.env.VITE_API_URL}auth/forgot`,
+          formData,
+          { withCredentials: true }
+        )
+        console.log(response)
+        setErrorMessage("Password changed successfully")
+
+        setisModel(true)
+
+      }
+       
+
+      if (user === "admin" && !forget) {
 
 
         response = await axios.post(`${import.meta.env.VITE_API_URL}admin/login`,
@@ -61,29 +79,29 @@ const Login = () => {
         )
 
       }
-      else {
+    if (user !=='admin'  && !forget) {
 
-        response = await axios.post(
-          `${import.meta.env.VITE_API_URL}auth/login`,
-          formData,
-          { withCredentials: true }  // Make sure to include cookies (if necessary)
-        );
+      response = await axios.post(
+        `${import.meta.env.VITE_API_URL}auth/login`,
+        formData,
+        { withCredentials: true }  // Make sure to include cookies (if necessary)
+      );
 
-      }
+    }
 
 
 
-      // If login is successful, redirect to the frontend
+ 
       if (response.data.message === 'Logged in successfully') {
 
         if (user === 'admin') {
 
  sessionStorage.setItem('token', response.data.token);
           navigate('/admin/dashboard')
-          // window.location.href= import.meta.env.VITE_API_FRURL+"/admin/dashboard"
+         
         } else {
           console.log(response)
-          // Redirect the user to the desired page after successful login
+       
 
           sessionStorage.setItem('token', response.data.token);
           window.location.href = `${import.meta.env.VITE_API_FRURL}`;
@@ -93,7 +111,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Error during login:", error);
-
+console.log(error)
       setErrorMessage("invalid email or password")
 
       setisModel(true)
@@ -112,28 +130,31 @@ const Login = () => {
         <div className="row d-flex justify-content-center">
           <div className="col-lg-8 col-md-6 col-sm-12">
             <div className="login-content" onClick={(e) => e.stopPropagation()}>
-              {user === "user" && (
+              {(user === "user" && !forget) && (
                 <h2 className="text-center my-5 add-famaily">Login to Your Account</h2>
               )}
-              {user === "service provider" && (
+              {(user === "service provider" && !forget) && (
                 <h2 className="text-center my-3 add-famaily">List A Service</h2>
               )}
-              {user === "service provider" && (
+              {(user === "service provider" && !forget) && (
                 <h2 className="text-center my-5 login-para">Log in to access your account and add your service to our trusted directory.</h2>
               )}
 
 
               {
-                user === "admin" && (
+               ( user === "admin"  && !forget)&& (
                   <h2 className="text-center my-5 add-famaily">Login to Admin Account</h2>
                 )
               }
-              {user === "directory" && (
+              {(user === "directory" && !forget) && (
                 <h2 className="text-center my-3 add-famaily">Funeral Director Login</h2>
               )}
 
-              {user === "directory" && (
+              {(user === "directory" && !forget) && (
                 <h2 className="text-center my-5 login-para">Access your dashboard to manage and publish death notices.</h2>
+              )}
+              { forget && (
+                <h2 className="text-center my-5 add-famaily">Forgot Password</h2>
               )}
 
 
@@ -155,17 +176,33 @@ const Login = () => {
                       <input
                         type="password"
                         name="password"  // Add name attribute
-                        placeholder="Enter your password"
+                        placeholder={forget ? "Enter your new password" : "Enter your password"}
                         required
                         className="form-control"
                         value={formData.password}
                         onChange={handleChange}
+                        minLength={8}
                       />
                     </div>
+                    {forget && (
+                        <div className="col-lg-12 col-md-12 col-sm-12">
+                        <input
+                          type="password"
+                          name="confirm"  // Add name attribute
+                          placeholder="Confirm your password"
+                          required
+                          className="form-control"
+                          value={formData.confirm}
+                          onChange={handleChange}
+       
+                        />
+                      </div>
+                    )}
                     <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
                       <button type="submit" className="link_btn">
-                        <p>Login <span>{'->'}</span> </p>
+                       {forget ?  <p>Confirm<span>{'->'}</span> </p> :  <p>Login <span>{'->'}</span> </p>}
                       </button>
+
                     </div>
                   </div>
                 </div>
@@ -193,6 +230,12 @@ const Login = () => {
                   </Link>
                 </div>
               )}
+
+              
+
+              <p  onClick={()=>    navigate('/forgetpassword', { state: { user: user,forget:true } })} className="support-link">
+               Forgot Password
+              </p>
               <Link to="#" className="support-link">
                 Need help? Contact Support for assistance.
               </Link>

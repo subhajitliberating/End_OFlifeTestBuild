@@ -8,7 +8,7 @@ import { SidebarProvider } from "../../Contex/SidebarContext";
 import { useState,useEffect } from "react";
 
 
-const Admin = ({setToken}) => {
+const Admin = ({setToken,setRole}) => {
   const [isOpen, setOpen] = useState(false);
   return (
     <SidebarProvider>
@@ -16,7 +16,7 @@ const Admin = ({setToken}) => {
         <Sidebar setOpen={setOpen}/>
         
         <div id="content" className={`w-100 ${isOpen ? 'content-m-250' : 'content-m-100'}`}>
-          <CustomNavbar setToken={setToken}/>
+          <CustomNavbar setToken={setToken} setRole={setRole}/>
           
           <Container fluid className="p-4">
             <div className="main-content">

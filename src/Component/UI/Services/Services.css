@@ -81,7 +81,7 @@
 
 /* Notice Board Container */
 .notice-bord-container {
-  background-image: url('/src/assets/backimg.png');
+  background-image: url('/src/assets/backimg.webp');
   position: absolute;
   background-size: auto;
   background-repeat: no-repeat;
@@ -142,7 +142,7 @@
   /* right: 0; */
   left: 50%;
   content: "";
-  background-image: url('/src/assets/mainborderimg.png');
+  background-image: url('/src/assets/mainborderimg.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 90%;
