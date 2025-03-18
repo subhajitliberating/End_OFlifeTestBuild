@@ -39,6 +39,9 @@ import FAQ from "./Component/Subpage/Faq";
 import Donate from "./Component/Subpage/Donate";
 import PracticalInformation from "./Component/Subpage/PracticalInformation";
 import UnderConstruction from "./Component/Subpage/UnderConstruction";
+import TermsAndConditions from "./Component/Subpage/TermsAndConditions";
+import ContactUs from "./Component/Subpage/ContactUs";
+import PrivacyPolicy from "./Component/Subpage/PrivacyPolicy";
 import { useEffect } from "react";
 function App() {
   const [user, setUser] = useState(null);
@@ -71,6 +74,9 @@ function App() {
           <Route path="donate" element={<Donate/>}/>
           <Route path="info" element={<PracticalInformation/>}/>
           <Route path="notworking" element={<UnderConstruction/>}/>
+          <Route path="termsandconditions" element={<TermsAndConditions/>}/>
+          <Route path="contactus" element={<ContactUs/>}/>
+          <Route path="policy" element={<PrivacyPolicy/>}/>
           {/* <Route path="service-directory" element={<ServiceDirector/>}/>
           <Route path="service-list" element={<ServiceList token={token} role={role}/>}/>
           <Route path="service-single" element={<ServiceSingle token={token} role={role}/>}/> */}

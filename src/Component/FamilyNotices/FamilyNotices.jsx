@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback,useMemo } from 'react';
 import axios from 'axios';
 import { BsFillGridFill, BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { FaList } from "react-icons/fa";
@@ -22,6 +22,10 @@ const FamilyNotices = () => {
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({});
   const [flag, setFlag] = useState(true)
+  const [sortConfig, setSortConfig] = useState({
+    key: null, // Column to sort by (e.g., "name", "town", "county", etc.)
+    direction: "asc", // Sorting direction: "asc" or "desc"
+  });
   const location = useLocation();
   const initialSearch = location.state?.data || {};
   const initialTab = location.state?.Tab || '';
@@ -157,6 +161,30 @@ const FamilyNotices = () => {
     return groups;
   }, []).sort((a, b) => b.startDate - a.startDate);
 
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+  const sortedNotices = useMemo(() => {
+    if (!sortConfig.key) return notices;
+  
+    return [...notices].sort((a, b) => {
+      const valueA = a[sortConfig.key];
+      const valueB = b[sortConfig.key];
+  
+      if (valueA < valueB) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (valueA > valueB) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [notices, sortConfig]);
+
   return (
     <div className='container cus-mt-170'>
       <div className="row my-2">
@@ -220,7 +248,7 @@ const FamilyNotices = () => {
                 <div className="row g-4">
                   {group.notices.map(notice => (
                     <div key={notice.id} className="col-lg-3 col-md-6">
-                      <Link to={`/noticesview/${encodeURIComponent(notice.name)}-${encodeURIComponent(notice.surname)}-${encodeURIComponent(notice.notice_number)}`} state={{ data: notice }}>
+                      {/* <Link to={`/noticesview/${encodeURIComponent(notice.name)}-${encodeURIComponent(notice.surname)}-${encodeURIComponent(notice.notice_number)}`} state={{ data: notice }}>
                         <div className="card shadow-sm h-100 transition-all">
                           <div className="card-header bg-dark text-white p-3">
                             <h5 className="card-title mb-0 text-center">{notice.item}</h5>
@@ -228,7 +256,7 @@ const FamilyNotices = () => {
                           <div className="card-img-container">
                             <img
                               src={`${import.meta.env.VITE_API_URL}${notice.frist_image.slice(7).replace(/\\/g, '/')}`}
-                              className="card-img-top object-fit-cover"
+                              className="card-img-top"
                               alt={notice.item}
                               style={{ height: '200px' }}
                             />
@@ -242,7 +270,22 @@ const FamilyNotices = () => {
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </Link> */}
+                       <div key={index} className="card-custom">
+                                                            <Link   to={`/noticesview/${encodeURIComponent(notice.name)}-${encodeURIComponent(notice.surname)}-${encodeURIComponent(notice.notice_number)}`}>
+                                                          <div className="img-div">
+                                                            <img
+                                                               src={`${import.meta.env.VITE_API_URL}${notice.frist_image.slice(7).replace(/\\/g, '/')}`} // Fallback to default if no image
+                                                              alt={notice.name}
+                                                              className="card-img"
+                                                            />
+                                                          </div>
+                                                          <div className="card-text">
+                                                            <h3 className="card-name">{notice.name}</h3>
+                                                            <p className="card-text">{notice.town + " "+ notice.county}</p>
+                                                          </div>
+                                                          </Link>
+                                                        </div>
                     </div>
                   ))}
                 </div>
@@ -252,33 +295,44 @@ const FamilyNotices = () => {
         ) : (
           <>
             <div className="table-responsive">
+              
               <table className="table table-hover align-middle">
-                <thead className="table-light">
-                  <tr>
-                    <th className="ps-4">Name</th>
-                    <th>Town</th>
-                    <th>County</th>
-                    <th>Type</th>
-                    <th className="pe-4">Published</th>
-                  </tr>
-                </thead>
+            <thead className="table-light">
+              <tr>
+                <th className="ps-4" onClick={() => handleSort("name")}>
+                  Name {sortConfig.key === "name" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                </th>
+                <th onClick={() => handleSort("town")}>
+                  Town {sortConfig.key === "town" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                </th>
+                <th onClick={() => handleSort("county")}>
+                  County {sortConfig.key === "county" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                </th>
+                <th onClick={() => handleSort("item")}>
+                  Type {sortConfig.key === "item" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                </th>
+                <th className="pe-4" onClick={() => handleSort("createdAt")}>
+                  Published {sortConfig.key === "createdAt" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                </th>
+              </tr>
+            </thead>
                 <tbody>
-                  {notices.map(notice => (
-                    <tr key={notice.id} className="transition-all">
-                      <td className="ps-4 fw-medium">{notice.name}</td>
-                      <td>{notice.town}</td>
-                      <td>
-                        <span className="badge bg-secondary bg-opacity-10 text-secondary">
-                          {notice.county}
-                        </span>
-                      </td>
-                      <td className="text-primary">{notice.item}</td>
-                      <td className="pe-4 text-muted">
-                        {new Date(notice.createdAt).toLocaleDateString()}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+      {sortedNotices.map((notice) => (
+        <tr key={notice.id} className="transition-all">
+          <td className="ps-4 fw-medium">{notice.name}</td>
+          <td>{notice.town}</td>
+          <td>
+            <span className="badge bg-secondary bg-opacity-10 text-secondary">
+              {notice.county}
+            </span>
+          </td>
+          <td className="text-primary">{notice.item}</td>
+          <td className="pe-4 text-muted">
+            {new Date(notice.createdAt).toLocaleDateString()}
+          </td>
+        </tr>
+      ))}
+    </tbody>
               </table>
             </div>
             <div className="d-flex justify-content-center align-items-center gap-3 my-5">

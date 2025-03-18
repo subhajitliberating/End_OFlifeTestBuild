@@ -46,9 +46,7 @@
     bottom: -3px;
 }
 
-.add_service{max-width:663px;padding: 73px 135px 58px; border:1px solid #155c78; border-radius: 23px; margin: 25px auto; text-align: center;}
-.add_service h3{font-family: var(--primary_font); font-weight: 500; text-transform: capitalize; font-size: 37px; line-height: 45px;}
-.add_service p{font-size: 16px; line-height: 24px; font-family: var(--subfont); color: var(--text-color); font-weight: 500;}
+
 .link_btn{color: #000; font-family: var(--primary_font); text-transform: capitalize; padding: 15px 25px;display: flex; justify-content: space-between; width: 70%; margin: auto;  border-radius: 50px; text-decoration: none;
     font-size: 20px; line-height: 23px; text-transform: capitalize; font-weight: 500; align-items: center; margin-top: 40px; transition: all 0.3s ease-in;
 }

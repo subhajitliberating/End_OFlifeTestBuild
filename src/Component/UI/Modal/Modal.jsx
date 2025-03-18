@@ -2,7 +2,7 @@
 import React from "react";
 import './style.css'; // Add custom styles here
 
-const Modal = ({ show, onConfirm, onCancel, message }) => {
+const Modal = ({ show, onConfirm, onCancel, message,setotp }) => {
   if (!show) return null;
 
   return (
@@ -15,11 +15,13 @@ const Modal = ({ show, onConfirm, onCancel, message }) => {
       </button>
       
       <div className="cus-modal-header">
-        {/* <h2 className="cus-modal-title">Modal Title</h2> */}
+      {!message &&   <h2 className="cus-modal-title">Enter Otp</h2>}
       </div>
       
       <div className="cus-modal-content">
-        <p>{message}</p>
+        {!message ? <input type="number" maxLength={6} className="form-control" placeholder="Enter OTP"style={{ appearance: "textfield" }}
+        onChange={(e)=>setotp(e.target.value)}
+        /> : <p>{message}</p>}
       </div>
       
       <div className="cus-modal-actions">

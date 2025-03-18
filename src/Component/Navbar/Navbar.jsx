@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.webp";
 import { FaUser } from "react-icons/fa";
@@ -23,15 +23,32 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const location = useLocation()
-  const getCookie = (name) => {
-    const cookies = document.cookie;
 
 
-    const value = `; ${cookies}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
+  const dropdownRef = useRef(null); // Ref for the dropdown menu
+
+  // Close the dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false); // Close the dropdown
+      }
+    };
+
+    // Attach the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Close the dropdown when a link is clicked
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
   };
+ 
 
 
 
@@ -133,7 +150,7 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
           </div>
 
           <div className="nav-row2">
-            <Link className="min-nav-link" to="#">{user}</Link>
+            <Link className="min-nav-link" to="#">{user?.length > 9 ? `${user.slice(0, 9)}...` : user}</Link>
             {!token && (<Link className="min-nav-link" to="login" state={{ user: "user" }}>Login/Signup</Link>
             )}
             {token && (
@@ -217,60 +234,64 @@ const Navbar = ({ token, user, role, setToken, setUser, setRole }) => {
           <Link to="/" > <img src={logo} alt="logo" className="nav-logo" /></Link>
         </div>
         {role === "null" && (
-          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}>
+          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}
+          ref={dropdownRef}
+          >
             <Link
               to="/"
               className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}
+              onClick={handleLinkClick}
             >
               Home
             </Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}>Death Notices</Link>
-            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}>Family Notices</Link>
-            <Link to="/service-directory" className={`nav-link ${location.pathname === '/service-directory' ? 'nav-link-active' : ''}`}>Services Directory</Link>
-            <Link to="/#" className={`nav-link ${location.pathname === '/#' ? 'nav-link-active' : ''}`}>Resources</Link>
+            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}  onClick={handleLinkClick}>Death Notices</Link>
+            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}  onClick={handleLinkClick}>Family Notices</Link>
+            <Link to="/service-directory" className={`nav-link ${location.pathname === '/service-directory' ? 'nav-link-active' : ''}`}  onClick={handleLinkClick}>Services Directory</Link>
+            <Link to="/notworking" className={`nav-link ${location.pathname === '/notworking' ? 'nav-link-active' : ''}`}  onClick={handleLinkClick}>Resources</Link>
           </div>
         )}
 
 
         {role === "admin" && (
-          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}>
-            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Home</Link>
-            <Link to="/admin/dashboard" className={`nav-link ${location.pathname === '/admin/dashboard' ? 'nav-link-active' : ''}`}>Dashboard</Link>
-            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}>Family Notices</Link>
-            <Link to="/admin/service-directory" className={`nav-link ${location.pathname === '/admin/service-directory' ? 'nav-link-active' : ''}`}>Services Directory</Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}>Resources</Link>
+          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}
+          ref={dropdownRef}>
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Home</Link>
+            <Link to="/admin/dashboard" className={`nav-link ${location.pathname === '/admin/dashboard' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Dashboard</Link>
+            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Family Notices</Link>
+            <Link to="/admin/service-directory" className={`nav-link ${location.pathname === '/admin/service-directory' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Services Directory</Link>
+            <Link to="/notworking" className={`nav-link ${location.pathname === '/notworking' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Resources</Link>
           </div>
         )}
 
         {role === "directory" && (
-          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}>
-            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Home</Link>
-            <Link to="directory/dashboard" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Dashboard</Link>
-            <Link to="/familynotices" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Family Notices</Link>
-            <Link to="/directory/service-directory" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Services Directory</Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}>Resources</Link>
+          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`} ref={dropdownRef}>
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Home</Link>
+            <Link to="directory/dashboard" className={`nav-link ${location.pathname === 'directory/dashboard' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Dashboard</Link>
+            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Family Notices</Link>
+            <Link to="/directory/service-directory" className={`nav-link ${location.pathname === '/directory/service-directory' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Services Directory</Link>
+            <Link to="/notworking" className={`nav-link ${location.pathname === '/notworking' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Resources</Link>
           </div>
         )}
 
 
 
         {role === "user" && (
-          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}>
-            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Home</Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Death Notices</Link>
-            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}>Family Notices</Link>
-            <Link to="/service-directory" className={`nav-link ${location.pathname === '/service-directory' ? 'nav-link-active' : ''}`}>Services Directory</Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}>Resources</Link>
+          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}  ref={dropdownRef}>
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Home</Link>
+            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Death Notices</Link>
+            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Family Notices</Link>
+            <Link to="/service-directory" className={`nav-link ${location.pathname === '/service-directory' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Services Directory</Link>
+            <Link to="/notworking" className={`nav-link ${location.pathname === '/notworking' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Resources</Link>
           </div>
         )}
 
         {role === "service provider" && (
-          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`}>
-            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`}>Home</Link>
-            <Link to="/service/deathnotice" className={`nav-link ${location.pathname === '/service/deathnotice' ? 'nav-link-active' : ''}`}>Death Notices</Link>
-            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}>Family Notices</Link>
-            <Link to="/service/service-directory" className={`nav-link ${location.pathname === '/service/service-directory' ? 'nav-link-active' : ''}`}>Services Directory</Link>
-            <Link to="/deathnotice" className={`nav-link ${location.pathname === '/deathnotice' ? 'nav-link-active' : ''}`}>Resources</Link>
+          <div className={`nav-link-box ${isMobileMenuOpen ? "open" : ""}`} ref={dropdownRef}>
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'nav-link-active' : ''}`} onClick={handleLinkClick}>Home</Link>
+            <Link to="/service/deathnotice" className={`nav-link ${location.pathname === '/service/deathnotice' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Death Notices</Link>
+            <Link to="/familynotices" className={`nav-link ${location.pathname === '/familynotices' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Family Notices</Link>
+            <Link to="/service/service-directory" className={`nav-link ${location.pathname === '/service/service-directory' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Services Directory</Link>
+            <Link to="/notworking" className={`nav-link ${location.pathname === '/notworking' ? 'nav-link-active' : ''}`}onClick={handleLinkClick}>Resources</Link>
 
 
           </div>

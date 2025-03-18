@@ -32,7 +32,7 @@ const Map = () => {
 
   const handleClick = (e) => {
     const county = e.target.getAttribute('id')?.split('-')[0] || '';
-    county && navigate(`/deathnotice/${county}`, { state: { countyName: county } });
+    navigate(`/deathnotice/${county}`, { state: { countyName: county } });
   };
 
   const fetchCountyData = async () => {

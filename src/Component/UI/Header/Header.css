@@ -76,7 +76,7 @@
     }
 
     .para-text {
-        width: 90%; /* Adjust width further for smaller screens */
+        width: 100%; /* Adjust width further for smaller screens */
         font-size: 14px; /* Reduce font size further */
         margin-top: 10px;
     }

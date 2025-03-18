@@ -11,6 +11,7 @@ const AdminNotices = ({token,family,death}) => {
   const [showModal, setShowModal] = useState(false);
   const [status, setStatus] = useState(false);
   const [formData,setFormData] = useState({
+    id : 0,
     item:"",
     price : 0
   })
@@ -22,10 +23,23 @@ const AdminNotices = ({token,family,death}) => {
   const [alertType, setAlertType] = useState("");
 
 
+
   const handelEdite = (data)=>{
 setEditData(data)
 setEditeModal(true)
   }
+
+const  handelEditeCategory = (notice)=>{
+
+  setFormData({
+  id : notice.id,
+  item : notice.item,
+  price : notice.price
+})
+setShowModal(true)
+
+
+}
 
   const fetchNotices = async (page, reset = false) => {
     setLoading(true);
@@ -59,7 +73,7 @@ setEditeModal(true)
 
   useEffect(() => {
     fetchNotices(page, true);
-  }, [page, searchQuery, family,death]);
+  }, [page, searchQuery, family,death,editeMOdal,DeletedModal,showModal]);
 
   const handlePagination = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -99,20 +113,36 @@ setEditeModal(true)
   const handleSubmit = async () => {
     // console.log(token)
     try {
-      const response = await axios.post(
+      if(formData.id !== 0 ){
+        const response = await axios.put(
         
-        `${import.meta.env.VITE_API_URL}admin/notice/type`,
-        formData,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-              },
-        }
-      );
+          `${import.meta.env.VITE_API_URL}admin/notice/type/edite`,
+          formData,
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+          }
+        );
+      }
+      else{
+        const response = await axios.post(
+        
+          `${import.meta.env.VITE_API_URL}admin/notice/type`,
+          formData,
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+          }
+        );
+      }
+      
       setShowModal(false);
-      setAlertMessage("Notice Type added successfully.");
+      setAlertMessage( formData.id ===0 ? "Notice Type added successfully." : "Notice Type Update successfully." );
       setAlertType("success");
       setShowModal(false)
+      fetchNotices()
       // Handle the response as needed
     } catch (error) {
       setAlertMessage("Failed to add notice type.");
@@ -123,6 +153,7 @@ setEditeModal(true)
 
   
   const handleDelete = (id) => {
+    
    setDeletedMOdal(true)
    setDeletedID(id)
   };
@@ -155,11 +186,7 @@ setEditeModal(true)
     <div className="container">
         <h1 className="mb-4 admin-title">{family ? 'Family Notices' : death ? 'Death Notices' : ' Notices Type '}</h1>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        {/* <label>Select Notice</label> */}
-        {/* <select className="form-select w-25 cus-drop-cat mat" value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="family">Family Notice</option>
-          <option value="death">Death Notice</option>
-        </select> */}
+
         <input
           type="text"
           placeholder="Search notices..."
@@ -167,7 +194,13 @@ setEditeModal(true)
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className="d-btn a-btn" onClick={() => setShowModal(true)}>Add Notice Type</button>
+        <button className="d-btn a-btn" onClick={() => {setShowModal(true)
+          setFormData({
+            id : 0,
+            item : '',
+            price : 0
+          })
+        }}>Add Notice Type</button>
       </div>
 
       <div className="table-responsive">
@@ -231,12 +264,22 @@ setEditeModal(true)
             </td>
           )}
           <td>
-            <button
+        {(family || death) &&(
+              <button
               className="btn btn-warning btn-sm me-2"
               onClick={() => handelEdite(notice)}
             >
               Edit
             </button>
+        )}
+          {(!family && !death) &&(
+              <button
+              className="btn btn-warning btn-sm me-2"
+              onClick={() => handelEditeCategory(notice)}
+            >
+              Edit Category
+            </button>
+        )}
             <button
               className="btn btn-danger btn-sm"
               onClick={() => handleDelete(notice.id)}
@@ -261,7 +304,7 @@ setEditeModal(true)
         </div>
       </div>
    {/* Add Notice Type Modal */}
-{showModal && (
+{(showModal) && (
   <div className="custom-modal__overlay">
     <div className="custom-modal__container">
       <div className="custom-modal__content custom-modal__content--primary">
@@ -278,6 +321,7 @@ setEditeModal(true)
             <input
               type="text"
               name="item"
+              value={formData.item}
               onChange={handelChang}
               className="custom-modal__input"
               placeholder="Ex: Legal Notice"
@@ -290,6 +334,7 @@ setEditeModal(true)
               <input
                 type="number"
                 name="price"
+                value={formData.price}
                 onChange={handelChang}
                 className="custom-modal__input"
                 placeholder="0.00"
