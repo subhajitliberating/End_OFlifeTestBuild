@@ -26,6 +26,14 @@ const AdminInvoice = ({ token }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [ismail,setIsmain] =useState(false)
     const [invoices, setInvoices] = useState([]);
+    const [downloadLoading, setDownloadLoading] = useState(false); 
+     const [DeletedModal,setDeletedMOdal]=useState(false)
+        const [DeletedId,setDeletedID]=useState(0)
+          const [alertMessage, setAlertMessage] = useState(""); // State for the alert message
+          const [alertType, setAlertType] = useState("");
+        
+    
+    // Add this state
     useEffect(() => {
         const fetchDirectors = async () => {
             try {
@@ -41,29 +49,56 @@ const AdminInvoice = ({ token }) => {
         fetchDirectors();
     }, [token]);
 
-    const handlePreview = async () => {
-        if (!selectedDirector || !startDate || !endDate) return;
+    // const handlePreview = async () => {
+    //     if (!selectedDirector || !startDate || !endDate) return;
 
-        setLoading(true);
-        try {
-            const response = await axios.get(
-                `${import.meta.env.VITE_API_URL}admin/get/death-notices`,
-                {
-                    params: { directorId: selectedDirector.id, startDate, endDate },
-                    headers: { Authorization: `Bearer ${token}` }
-                }
-            );
+    //     setLoading(true);
+    //     try {
+    //         const response = await axios.get(
+    //             `${import.meta.env.VITE_API_URL}admin/get/death-notices`,
+    //             {
+    //                 params: { directorId: selectedDirector.id, startDate, endDate },
+    //                 headers: { Authorization: `Bearer ${token}` }
+    //             }
+    //         );
      
-            setPreviewData(response.data);
-        } catch (err) {
-            console.error("Preview error:", err);
-            alert("Error generating preview");
-        } finally {
-            setLoading(false);
-        }
-    };
+    //         setPreviewData(response.data);
+    //     } catch (err) {
+    //         console.error("Preview error:", err);
+    //         alert("Error generating preview");
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
-
+    const handlePreview = async () => {
+      if (!selectedDirector || !startDate || !endDate) return;
+  
+      setLoading(true);
+      try {
+          const response = await axios.get(
+              `${import.meta.env.VITE_API_URL}admin/get/death-notices`,
+              {
+                  params: { directorId: selectedDirector.id, startDate, endDate },
+                  headers: { Authorization: `Bearer ${token}` }
+              }
+          );
+  
+          // Ensure previewData has the correct structure
+          setPreviewData({
+              notices: response.data.notices,
+              total: response.data.total, // Add total if available
+              director: selectedDirector,
+              startDate,
+              endDate
+          });
+      } catch (err) {
+          console.error("Preview error:", err);
+          alert("Error generating preview");
+      } finally {
+          setLoading(false);
+      }
+  };
 
 
     const handelSendemail = ()=>{
@@ -74,132 +109,219 @@ const AdminInvoice = ({ token }) => {
 
 
 
-    const handleGenerateInvoice = async () => {
-        if (!previewData || previewData.notices.length === 0) {
-            alert("No data to generate invoice");
-            return;
-        }
-    
-        const chunkSize = 9; // Number of notices per page
-        const notices = previewData.notices;
-        const chunks = [];
-        let invoiceTotal = 0; // Running total for the entire invoice
-    
-        // Split notices into chunks of 9
-        for (let i = 0; i < notices.length; i += chunkSize) {
-            chunks.push(notices.slice(i, i + chunkSize));
-        }
-    
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        let isFirstPage = true;
-        
-        for (const [index, chunk] of chunks.entries()) {
-            const isLastPage = index === chunks.length - 1; // Check if it's the last page
-    
-            // Calculate chunk totals
-            const chunkSubtotal = chunk.reduce((sum, notice) => sum + notice.price, 0);
-            const chunkGST = chunkSubtotal;
-            invoiceTotal += chunkSubtotal; // Add to the running total
-    
-            // Generate HTML for the chunk
-            const invoiceHTML = generateInvoiceHTML(chunk, chunkSubtotal, chunkGST, invoiceTotal, isFirstPage, isLastPage);
-    
-            // Create and render temporary element
-            const tempDiv = document.createElement('div');
-            tempDiv.style.position = 'absolute';
-            tempDiv.style.left = '-9999px';
-            tempDiv.innerHTML = invoiceHTML;
-            document.body.appendChild(tempDiv);
-    
-            // Capture HTML as image (Optimized)
-            const canvas = await html2canvas(tempDiv, { scale: 1.5 }); // Scale reduced from 2 to 1.5
-            const imgData = canvas.toDataURL('image/jpeg', 0.6); // Use JPEG format with compression (0.6 quality)
-    
-            // Calculate image dimensions (Optimized)
-            const imgWidth = 210; // A4 width in mm
-            const maxHeight = 297; // A4 height in mm
-            const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, maxHeight); // Prevent oversized images
-    
-            if (!isFirstPage) pdf.addPage();
-            isFirstPage = false;
-    
-            pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
-            document.body.removeChild(tempDiv);
-        }
-    // Round the total amount to remove decimals
-const formattedTotalAmount = Math.round(invoiceTotal); // Example: 492.8 → 492
 
-        // Generate compressed PDF
-        const pdfBlob = pdf.output("blob", { compress: true }); // Enable PDF compression
-    
-        const formData = new FormData();
-        formData.append("invoice", pdfBlob, `invoice-${new Date().toISOString().slice(0, 10)}.pdf`);
-        formData.append("startDate", startDate);
-        formData.append("endDate", endDate);
-        formData.append("username", selectedDirector.username);
-        formData.append("total", formattedTotalAmount); 
-        formData.append("email", selectedDirector.email);
-        formData.append("directorId", selectedDirector.id);
-    
-        pdf.save(`invoice-${new Date().toISOString().slice(0, 10)}.pdf`);
-    
-        try {
-            const data = {
-                startDate: startDate,
-                endDate: endDate,
-                username: selectedDirector.username,
-                total: Math.round(invoiceTotal),
-                email: selectedDirector.email,
-                directorId: selectedDirector.id
-            };
-            await axios.post(`${import.meta.env.VITE_API_URL}admin/add/invoice`, data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            if (ismail) {
-                await axios.post(`${import.meta.env.VITE_API_URL}admin/send-invoice-email`, formData, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                // console.log('send mail');
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
+const handleDownload = async (invoice) => {
+  setDownloadLoading(true); // Start loading
+  try {
+      console.log('Fetching invoice details...');
+      // Fetch the invoice details
+      const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}admin/get/invoice/${invoice.id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const invoiceData = response.data.invoice
+      ;
+      console.log('Invoice data:', invoiceData);
+
+      // Fetch the death notices for the invoice period
+      console.log('Fetching death notices...');
+      const noticesResponse = await axios.get(
+          `${import.meta.env.VITE_API_URL}admin/get/death-notices`,
+          {
+              params: { 
+                  directorId: invoiceData.d_id, // Use director ID from the invoice
+                  startDate: invoiceData.invoce_from, // Use start date from the invoice
+                  endDate: invoiceData.invoce_to // Use end date from the invoice
+              },
+              headers: { Authorization: `Bearer ${token}` }
+          }
+      );
+
+      console.log('Death notices:', noticesResponse.data);
+
+      // Combine the invoice data with the notices
+      const data = {
+          ...invoiceData,
+          notices: noticesResponse.data.notices,
+          total: invoiceData.totalprice // Use total price from the invoice
+      };
+
+      console.log('Generating PDF...');
+      // Generate the PDF
+      await handleGenerateInvoice(data);
+  } catch (err) {
+      console.error("Error downloading invoice:", err);
+      alert("Failed to download invoice. Please check the console for details.");
+  } finally {
+      setDownloadLoading(false); // Stop loading
+  }
+};
 
 
-    useEffect(() => {
-        const fetchInvoices = async () => {
-            try {
-                const response = await axios.get(
-                    `${import.meta.env.VITE_API_URL}admin/get/invoice`,
-                    {
-                        headers: {
-                          Authorization: `Bearer ${token}`,
-                        },
-                        params: {
-                          page,
-                          limit: 10,
-                        
-                        },
-                      }
-                );
-                setInvoices(response.data.invoices
-                );
-                console.log(response.data.invoices
-                )
-            } catch (err) {
-                console.error("Error fetching invoices:", err);
-            }
-        };
-        fetchInvoices();
-    }, [token]);
+const handleDelete = (id) => {
+    
+  setDeletedMOdal(true)
+  setDeletedID(id)
+ };
+
+ const confirmDelete = async () => {
+   try {
+
+     await axios.delete(
+      
+       `${import.meta.env.VITE_API_URL}admin/invoice/deleted`,
+       {
+         data: { id: DeletedId },
+         headers: { Authorization: `Bearer ${token}` }
+       }
+     );
+     setAlertMessage("Notice deleted successfully.");
+     setAlertType("success");
+     setDeletedMOdal(false)
+  
+    
+   } catch (err) {
+     console.error("Delete error:", err);
+     setAlertMessage("Failed to delete notice.");
+     setAlertType("danger");
+   }
+ };
+
+useEffect(() => {
+  const fetchInvoices = async () => {
+      try {
+          const response = await axios.get(
+              `${import.meta.env.VITE_API_URL}admin/get/invoice`,
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+                  params: {
+                      page,
+                      limit: 10,
+                      search: searchQuery // Pass searchQuery as a query parameter
+                  },
+              }
+          );
+          setInvoices(response.data.invoices);
+      
+      } catch (err) {
+          console.error("Error fetching invoices:", err);
+      }
+  };
+  fetchInvoices();
+}, [token, searchQuery, page,DeletedModal,showModal]); // Add searchQuery and page to the dependency array
     
     
+    const handleGenerateInvoice = async (invoiceData = null) => {
+      const data = invoiceData || previewData;
+  
+      if (!data || !data.notices || data.notices.length === 0) {
+          alert("No data to generate invoice");
+          return;
+      }
+  
+      console.log('Generating PDF for data:', data);
+  
+      const chunkSize = 9; // Number of notices per page
+      const notices = data.notices;
+      const chunks = [];
+      let invoiceTotal = data.total || 0; // Use total from the invoice data
+  
+      // Split notices into chunks of 9
+      for (let i = 0; i < notices.length; i += chunkSize) {
+          chunks.push(notices.slice(i, i + chunkSize));
+      }
+  
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      let isFirstPage = true;
+  
+      for (const [index, chunk] of chunks.entries()) {
+          const isLastPage = index === chunks.length - 1; // Check if it's the last page
+  
+          // Calculate chunk totals
+          const chunkSubtotal = chunk.reduce((sum, notice) => sum + notice.price, 0);
+          const chunkGST = chunkSubtotal;
+  
+          // Generate HTML for the chunk
+          const invoiceHTML = generateInvoiceHTML(chunk, chunkSubtotal, chunkGST, invoiceTotal, isFirstPage, isLastPage);
+  
+          // Create and render temporary element
+          const tempDiv = document.createElement('div');
+          tempDiv.style.position = 'absolute';
+          tempDiv.style.left = '-9999px';
+          tempDiv.innerHTML = invoiceHTML;
+          document.body.appendChild(tempDiv);
+  
+          // Capture HTML as image (Optimized)
+          const canvas = await html2canvas(tempDiv, { scale: 1.5 }); // Scale reduced from 2 to 1.5
+          const imgData = canvas.toDataURL('image/jpeg', 0.6); // Use JPEG format with compression (0.6 quality)
+  
+          // Calculate image dimensions (Optimized)
+          const imgWidth = 210; // A4 width in mm
+          const maxHeight = 297; // A4 height in mm
+          const imgHeight = Math.min((canvas.height * imgWidth) / canvas.width, maxHeight); // Prevent oversized images
+  
+          if (!isFirstPage) pdf.addPage();
+          isFirstPage = false;
+  
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+          document.body.removeChild(tempDiv);
+      }
+  
+      // Save the PDF
+      console.log('Saving PDF...');
+      const formattedTotalAmount = Math.round(invoiceTotal); // Round the total amount
+  
+      // Generate compressed PDF
+      const pdfBlob = pdf.output("blob", { compress: true }); // Enable PDF compression
+  
+      // Create FormData for sending the invoice
+      const formData = new FormData();
+      formData.append("invoice", pdfBlob, `invoice-${new Date().toISOString().slice(0, 10)}.pdf`);
+      formData.append("startDate", startDate);
+      formData.append("endDate", endDate);
+      formData.append("username", selectedDirector.username);
+      formData.append("total", formattedTotalAmount);
+      formData.append("email", selectedDirector.email);
+      formData.append("directorId", selectedDirector.id);
+  
+      // Save the PDF locally
+      pdf.save(`invoice-${new Date().toISOString().slice(0, 10)}.pdf`);
+  
+      try {
+          // Save the invoice data to the database
+          const data = {
+              startDate: startDate,
+              endDate: endDate,
+              username: selectedDirector.username,
+              total: formattedTotalAmount,
+              email: selectedDirector.email,
+              directorId: selectedDirector.id
+          };
+  
+          await axios.post(`${import.meta.env.VITE_API_URL}admin/add/invoice`, data, {
+              headers: {
+                  'Authorization': `Bearer ${token}`
+              }
+          });
+  
+          // Send the invoice via email if `ismail` is true
+          if (ismail) {
+              await axios.post(`${import.meta.env.VITE_API_URL}admin/send-invoice-email`, formData, {
+                  headers: {
+                      'Authorization': `Bearer ${token}`,
+                      'Content-Type': 'multipart/form-data' // Ensure proper content type for file upload
+                  }
+              });
+              console.log('Email sent successfully');
+          }
+      } catch (err) {
+          console.error("Error saving or sending invoice:", err);
+         
+      }
+  };
     
     
     const generateInvoiceHTML = (chunk, subtotal, gst, total, isFirstPage, isLastPage) => {
@@ -305,6 +427,11 @@ const formattedTotalAmount = Math.round(invoiceTotal); // Example: 492.8 → 492
         </div>
   
         <div className="table-responsive">
+        {alertMessage && (
+        <div className={`alert alert-${alertType} mt-3`} role="alert">
+          {alertMessage}
+        </div>
+      )}
           <table className="table table-hover custom-table">
             <thead className="table-light">
               <tr>
@@ -334,16 +461,24 @@ const formattedTotalAmount = Math.round(invoiceTotal); // Example: 492.8 → 492
                     <td>{new Date(notice.invoce_from).toLocaleDateString()}</td>
                     <td>{new Date(notice.invoce_to).toLocaleDateString()}</td>
                     <td>€{notice.totalprice}</td>
-                    {/* <td>{new Date(notice.createdAt).toLocaleDateString()}</td> */}
+                  
                     <td className={notice.payment_status ? "text-success fw-bold" : "text-danger fw-bold"}>
                       {notice.payment_status ? "Paid" : "Unpaid"}
                     </td>
-                    {/* <td className={notice.status ? "text-success fw-bold" : "text-danger fw-bold"}>
-                      {notice.status ? "Active" : "Deactivate"}
-                    </td> */}
+                   
                     <td>
                   
-                      <button className="btn btn-warning btn-sm me-2" onClick={()=>handelEdite(notice)}>Edit</button>
+                    <button 
+    className="btn btn-warning btn-sm me-2" 
+    onClick={() => handleDownload(notice)} 
+    disabled={downloadLoading}
+>
+    {downloadLoading ? (
+        <span className="spinner-border spinner-border-sm me-2"></span>
+    ) : (
+        "Download"
+    )}
+</button>
                       <button className="btn btn-danger btn-sm"onClick={()=>handleDelete(notice.id)}>Delete</button>
                     </td>
                   </tr>
@@ -551,12 +686,12 @@ const formattedTotalAmount = Math.round(invoiceTotal); // Example: 492.8 → 492
               <i className="bi bi-x-circle me-2"></i>Cancel
             </button>
             <button 
-              className="btn btn-success btn-sm flex-grow-1" 
-              onClick={handleGenerateInvoice}
-              disabled={!previewData || loading}
-            >
-              <i className="bi bi-file-earmark-pdf me-2"></i>Generate PDF
-            </button>
+    className="btn btn-success btn-sm flex-grow-1" 
+    onClick={() => handleGenerateInvoice()} // Use previewData directly
+    disabled={!previewData || loading}
+>
+    <i className="bi bi-file-earmark-pdf me-2"></i>Generate PDF
+</button>
             <button 
               className="btn btn-primary btn-sm flex-grow-1" 
               onClick={handelSendemail} 
@@ -565,6 +700,43 @@ const formattedTotalAmount = Math.round(invoiceTotal); // Example: 492.8 → 492
               <i className="bi bi-envelope me-2"></i>Send Email
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+{DeletedModal && (
+  <div className="custom-modal__overlay">
+    <div className="custom-modal__container">
+      <div className="custom-modal__content custom-modal__content--danger">
+        <div className="custom-modal__header">
+          <i className="custom-modal__icon bi bi-exclamation-octagon"></i>
+          <h3 className="custom-modal__title">Confirm Deletion</h3>
+          <button className="custom-modal__close" onClick={() => setDeletedMOdal(false)}>
+            &times;
+          </button>
+        </div>
+        <div className="custom-modal__body">
+          <div className="custom-modal__delete-content">
+            <div className="custom-modal__delete-icon">
+              <i className="bi bi-trash3"></i>
+            </div>
+            <p className="custom-modal__delete-text">
+              You're about to permanently delete this notice type and all related data.
+              <br />
+              <strong>This action cannot be undone!</strong>
+            </p>
+          </div>
+        </div>
+        <div className="custom-modal__footer">
+          <button className="custom-modal__btn custom-modal__btn--secondary" onClick={() => setDeletedMOdal(false)}>
+            <i className="bi bi-x-circle me-2"></i>
+            Cancel
+          </button>
+          <button className="custom-modal__btn custom-modal__btn--danger" onClick={confirmDelete}>
+            <i className="bi bi-trash3 me-2"></i>
+            Delete Permanently
+          </button>
         </div>
       </div>
     </div>

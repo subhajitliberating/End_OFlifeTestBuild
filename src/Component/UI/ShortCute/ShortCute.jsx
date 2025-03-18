@@ -17,17 +17,24 @@ const ShortCute = ()=>{
         icon:ob,
         heading:"Obituaries Archive",
         para:'Access past obituaries by year or name. Useful for those looking for older notices or conducting genealogical research.',
-        button:'View Obituaries'
+        button:'View Obituaries',
+        link : '/notworking',
+    
     },
     {   icon:pr,
         heading:"Practical Information",
         para:'A dedicated page listing upcoming funerals with dates, times, and locations. Provides convenience for people planning to attend services.',
-        button:'Read More'}
+        button:'Read More',
+        link:'/info',
+    
+    }
         ,
     {   icon:me,
         heading:"Memorial Pages",
         para:'A section allowing families to create permanent digital memorials.Includes photos, stories, and tributes from loved ones.',
         button:'Create Memorial'
+        ,
+        link:'/notworking',
     }
  ]
 
@@ -42,7 +49,7 @@ const ShortCute = ()=>{
                 <img src={card.icon} alt="icon" className="short-cut-icon"/>
                 <h2 className="short-cut-card-heading">{card.heading}</h2>
                 <p className="short-cut-card-para">{card.para}</p>
-                <Link to='notworking' className="short-cut-card-button">{`${card.button}`}
+                <Link to={card.link} className="short-cut-card-button">{`${card.button}`}
 
                     <p className="btn-para">{"->"}</p>
                 </Link>

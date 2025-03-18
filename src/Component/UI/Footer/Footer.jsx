@@ -27,11 +27,11 @@ const Footer = () => {
               <li><Link className="footer-link" to="/" >Home</Link></li>
               <li><Link className="footer-link" to="/deathnotice" >Death Notices</Link></li>
               <li><Link className="footer-link" to="/familynotices" >Family Notices</Link></li>
-              <li><Link className="footer-link" to="/" >Resources</Link></li>
-              <li><Link className="footer-link" to="/" >About Us</Link></li>
-              <li><Link className="footer-link" to="/service-list" >Services</Link></li>
-              <li><Link className="footer-link" to="/" >FAQ</Link></li>
-              <li><Link className="footer-link" to="/" >Contact Us</Link></li>
+              <li><Link className="footer-link" to="notworking" >Resources</Link></li>
+              <li><Link className="footer-link" to="notworking" >About Us</Link></li>
+              <li><Link className="footer-link" to="service-list" >Services</Link></li>
+              <li><Link className="footer-link" to="faq" >FAQ</Link></li>
+              <li><Link className="footer-link" to="contactus" >Contact Us</Link></li>
             </ul>
           </div>
          <div className="service-link-div">
@@ -105,7 +105,7 @@ const Footer = () => {
           </div> 
         </div>
         <div className="text-center mt-4 footerbottom ">
-          <div className="mb-0 d-flex justify-content-center my-5 "> <Link className="footer-link mx-3" to="#" >Terms & Conditions </Link>  <Link className="footer-link mx-3" to="#" > Privacy Policy </Link> <Link className="footer-link mx-3" to="#" > Contact </Link> <Link className="footer-link mx-3" to="#" >Donate </Link> </div>
+          <div className="mb-0 d-flex justify-content-center my-5 "> <Link className="footer-link mx-3" to="termsandconditions" >Terms & Conditions </Link>  <Link className="footer-link mx-3" to="policy" > Privacy Policy </Link> <Link className="footer-link mx-3" to="contactus" > Contact </Link> <Link className="footer-link mx-3" to="#" >Donate </Link> </div>
          <div className="liberating_logo_div my-3">
           <img  src={liberatingLOgo} />
          </div>

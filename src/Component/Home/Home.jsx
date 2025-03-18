@@ -33,7 +33,7 @@ const Home = ({ setRole, role }) => {
    
     // Get the token from cookies
     const token =sessionStorage.getItem('token');
-    console.log('HOmepage' ,token)
+   
     if (token) {
       try {
         // Decode the token using jwt-decode

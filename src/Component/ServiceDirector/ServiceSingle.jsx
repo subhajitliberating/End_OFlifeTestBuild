@@ -84,9 +84,9 @@ const ServiceSingle = ({token,role}) => {
                           <span>{service.business_type}</span>
                           <p>{service.business_name}</p>
                           <ul>
-                            <li> <IoLocationSharp size={20} style={{
+                            <li className="cus-li-loction"> <IoLocationSharp size={20} style={{
                               margin:'2px'
-                            }}/>{service.location_details}</li>
+                            }}/><div>{service.location_details}</div></li>
                           </ul>
                         </div>
                       </div>

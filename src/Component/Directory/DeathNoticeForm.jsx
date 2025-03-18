@@ -315,64 +315,7 @@ function DeathNoticeForm({ token }) {
     const handleEditorChange = (content) => {
         setContent(content);
     };
-    // const handleSubmit = async () => {
-    // const data = {
-    //     name: name || "",
-    //     nee: nee || "",
-    //     surname: surname || "",
-    //     item: selectedItems ? selectedItems.name : "",
-    //     price: selectedItems ? selectedItems.price : 0,
-    //     content,
-    //     payment: selectedItems ? selectedItems.price : 0,
-    //     status: false,
-    //     town: counties.town,
-    //     frist_another_town: anthorCounty && anthorCounty[0] ? anthorCounty[0].town : '',
-    //     sceond_another_town: anthorCounty && anthorCounty[1] ? anthorCounty[1].town : '',
-    //     frist_another_county: anthorCounty && anthorCounty[0] ? anthorCounty[0].county : '',
-    //     another_town: towns ? towns.town : '',
-    //     street,
-    //     category: mapDetails ? mapDetails.category : '',
-    //     county: mapDetails ? mapDetails.county : '',
-    //     church: mapDetails ? mapDetails.church : '',
-    // };
-
-    // console.log("Data to be submitted:", data);
-
-    //     try {
-    //         const formData = new FormData();
-
-    //         // Append all fields to FormData
-    //         Object.keys(data).forEach((key) => {
-    //             formData.append(key, data[key]);
-    //         });
-
-    //         // Append the image files if they exist
-    //         if (frist_images) formData.append('first_image', frist_images[0]);
-    //         if (sceond_images) formData.append('second_image', sceond_images[0]);
-    //         if (thrid_images) formData.append('third_image', thrid_images[0]);
-
-    //         const response = await fetch(`${import.meta.env.VITE_API_URL}directore/add`, {
-    //             method: "POST",
-    //             headers: {
-    //                 // "Authorization": `Bearer ${token}`,  
-    //             },
-    //             body: formData,
-    //         });
-
-    //         if (response.ok) {
-    //             const result = await response.json();
-    //             console.log("Data submitted successfully:", result);
-
-    //         } else {
-    //             console.error("Error submitting data:", response.statusText);
-
-    //         }
-    //     } catch (error) {
-    //         console.error("Request failed", error);
-
-    //     }
-    // };
-
+    
 
     const handleSubmit = async () => {
         if (!price) {

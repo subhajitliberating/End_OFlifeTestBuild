@@ -23,7 +23,9 @@ const Login = () => {
 
   const [isModel, setisModel] = useState(false)
   const [errorMessage, setErrorMessage] = useState()
-
+  const [otpModal,setOtpmodal]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [otp,setotp]=useState()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,18 +56,21 @@ const Login = () => {
 
 
     try {
+      setIsLoading(true);
       let response
       if (user  && forget) {
 
 
-        response = await axios.put(`${import.meta.env.VITE_API_URL}auth/forgot`,
+        response = await axios.post(`${import.meta.env.VITE_API_URL}auth/forgot`,
           formData,
           { withCredentials: true }
         )
-        console.log(response)
-        setErrorMessage("Password changed successfully")
+        // console.log(response)
+        // setErrorMessage("Otp send successfully to your email")
 
-        setisModel(true)
+        // setisModel(true)
+        localStorage.setItem('otpToken' , response.data.otpToken)
+        setOtpmodal(true)
 
       }
        
@@ -112,17 +117,66 @@ const Login = () => {
     } catch (error) {
       console.error("Error during login:", error);
 console.log(error)
-      setErrorMessage("invalid email or password")
+      setErrorMessage("invalid email ")
 
       setisModel(true)
 
-    }
+    
+  } finally {
+    setIsLoading(false); // Stop loading
+  }
   };
 
   const handelgooglelogin = () => {
     // Redirect to the backend for Google login
     window.location.href = 'http://localhost:5000/auth/google';
   };
+
+  
+  const handelveryfiyotp = async (e) => {
+
+    e.preventDefault();
+  
+    try {
+      setIsLoading(true);
+  
+      const otpToken = localStorage.getItem("otpToken"); // Retrieve stored OTP token
+  
+      // Ensure OTP is entered
+      // if (!formData.otp) {
+      //   setErrorMessage("Please enter the OTP");
+      //   setIsLoading(false);
+      //   return;
+      // }
+  
+      // Add OTP and OTP token to formData
+      const updatedFormData = {
+        ...formData,
+        otp,
+        otpToken,
+      };
+  
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}auth/verify-otp`,
+        updatedFormData,
+        { withCredentials: true }
+      );
+  
+
+      setErrorMessage("Paasword Change successfully!");
+        setOtpmodal(false);
+        setisModel(true)
+        console.log(otpModal)
+        // Proceed with password reset or next step
+    
+    } catch (error) {
+      console.log(error)
+      setErrorMessage(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
 
   return (
     <div className="login cus-mt-170">
@@ -199,8 +253,14 @@ console.log(error)
                       </div>
                     )}
                     <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center">
-                      <button type="submit" className="link_btn">
-                       {forget ?  <p>Confirm<span>{'->'}</span> </p> :  <p>Login <span>{'->'}</span> </p>}
+                    <button type="submit" className="link_btn justify-content-center" disabled={isLoading}>
+                        { isLoading ? (
+                     <div className="spinner-border text-warning text-center" role="status">
+                     <span className="visually-hidden">Loading...</span>
+                   </div>
+                        ) : (
+                          forget ? <p>Confirm<span>{'->'}</span></p> : <p>Login <span>{'->'}</span></p>
+                        )}
                       </button>
 
                     </div>
@@ -251,6 +311,16 @@ console.log(error)
         message={errorMessage}
         title={"Error"}
       />
+ 
+      <Modal
+      show={otpModal}
+      onConfirm={(e) => handelveryfiyotp(e)}
+      onCancel={() => { setOtpmodal(false) }}
+      message={false}
+      title={"Error"}
+      setotp={setotp}
+    />
+   
     </div>
 
   );

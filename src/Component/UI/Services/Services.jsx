@@ -33,28 +33,34 @@ useEffect(()=>{
   FetchServices()
 },[])
 
-  const fetchFilteredServices = async (businessType) => {
+  const fetchFilteredServices = async (businessType,county ) => {
   
   
     try {
       // Make the API request with the provided filters
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}service/list`, {
-        county: "",
-        business_type: businessType ,
-      });
+      // const response = await axios.post(`${import.meta.env.VITE_API_URL}service/list`, {
+      //   county: "",
+      //   business_type: businessType ,
+      // });
   
       // Assuming the API response contains the filtered services data
-      const filteredServices = response.data.service;
+      // const filteredServices = response.data.service;
       // const filteredServices = response.data.services.map(service => ({
       //   ...service, // Spread the properties of each service
       //   county: county, // Add county to each service
       //   business_type: businessType // Add business_type to each service
       // }));
-       console.log(filteredServices)
-      // Navigate to the new page, passing the filtered services data as state
-      navigate("/service-list", {
-        state: { services: filteredServices }, // Pass the services as state
-      }); 
+      //  console.log(filteredServices)
+
+       const countyParam = county || "all";
+       const businessTypeParam = businessType || "all";
+   
+         
+         navigate(`/service-list/${countyParam}/${businessTypeParam}` );
+     
+      // navigate("/service-list", {
+      //   state: { services: filteredServices }, // Pass the services as state
+      // }); 
     } catch (error) {
       console.error("Error fetching filtered services:", error);
     }
@@ -65,13 +71,12 @@ useEffect(()=>{
 
   const handleServiceClick = (serviceName) => {
 
-    fetchFilteredServices(serviceName);
+    fetchFilteredServices(serviceName,'all');
      // Fetch filtered services by business type
   };
 
   const handelnavigate = () => {
 
-    console.log("clicking......")
     if(role !== 'user'){
       navigate('/login', { state: { user: "user" } });
     }

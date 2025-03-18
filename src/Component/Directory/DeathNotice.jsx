@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useMemo } from 'react';
 import axios from 'axios';
 import { BsFillGridFill } from "react-icons/bs";
 import { FaList } from "react-icons/fa";
@@ -12,20 +12,24 @@ const DeathNotice = () => {
   const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
   const [page, setPage] = useState(1); // Track current page for infinite scroll
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const [totalPages, setTotalPages] = useState(1); // Track total number of pages for pagination
   const [searchParams, setSearchParams] = useState({}); // State to hold search parameters
   const location = useLocation();
-
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "asc",
+  });
   const searchdata = location.state?.data; // Search data from the state
   // const countydata = location.state?.countyName;
 
-  const { countydata } = useParams();
+  // const { countydata } = useParams();
   const navigate = useNavigate();
-
+  
+  const countydata = location.state?.countyName;
   useEffect(() => {
     if (!countydata && !searchdata) {
-      navigate("/deathnotice"); // Redirect if countydata is not different
+      navigate(`/deathnotice/${countydata}`); // Redirect if countydata is not different
     }
   }, [countydata, navigate]);
   useEffect(() => {
@@ -73,6 +77,7 @@ const DeathNotice = () => {
 
   const fetchNotices = async (page, reset = false, params) => {
     setLoading(true);
+    console.log(params)
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}directore/notices/pagination`, {
         params: {
@@ -83,6 +88,7 @@ const DeathNotice = () => {
       });
 
       if (reset) {
+      console.log(response.data.notices)
         setNotices(response.data.notices); // Reset notices if reset flag is true
         setTotalPages(response.data.totalPages); // Set total pages for pagination
       } else {
@@ -93,7 +99,7 @@ const DeathNotice = () => {
         setNotices((prev) => [...prev, ...newNotices]); // Append only non-duplicate notices
       }
      
-      setHasMore(response.data.notices.length > 0); // Set hasMore based on the response length
+      setHasMore(response.data.notices.length > 9); // Set hasMore based on the response length
     } catch (error) {
       console.error(error);
     } finally {
@@ -147,6 +153,31 @@ const DeathNotice = () => {
 
     // Update searchParams state with the new search criteria
   };
+
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedNotices = useMemo(() => {
+    if (!sortConfig.key) return notices;
+
+    return [...notices].sort((a, b) => {
+      const valueA = a[sortConfig.key];
+      const valueB = b[sortConfig.key];
+
+      if (valueA < valueB) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (valueA > valueB) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [notices, sortConfig]);
 
   // Group notices by date range (7 days)
   const groupNoticesByDateRange = (notices) => {
@@ -217,35 +248,22 @@ const DeathNotice = () => {
                 </div>
                 <div className="row g-4">
                   {group.notices.map(notice => (
-                    <div key={notice.id} className="col-lg-3 col-md-6">
-                      <Link
-                        to={`/noticesview/${encodeURIComponent(notice.name)}-${encodeURIComponent(notice.surname)}-${encodeURIComponent(notice.notice_number)}`}
-
-                      >
-                        <div className="card shadow-sm h-100 transition-all">
-                          <div className="card-header bg-dark text-white p-3">
-                            <h5 className="card-title mb-0 text-center">{notice.name}</h5>
-                          </div>
-                          <div className="card-img-container">
-                            <img
-                              src={`${import.meta.env.VITE_API_URL}${notice.frist_image.slice(7).replace(/\\/g, '/')}`}
-                              className="card-img-top object-fit-cover"
-                              alt={notice.item}
-                              style={{ height: '200px' }}
-                            />
-                          </div>
-                          <div className="card-body">
-                            <div className="d-flex flex-column gap-2">
-                              <p className="mb-0 my-2 fw-medium text-center">
-                                {`${notice.name} ${notice.surname} ${notice.nee}`}
-                              </p>
-                              <div className="align-items-center gap-1 text-center">
-                                <p className="text-muted my-2 text-center">{notice.county}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
+                    <div key={notice.id} className="col-lg-3 col-md-6 ">
+                     <div key={index} className="card-custom">
+                                      <Link   to={`/noticesview/${encodeURIComponent(notice.name)}-${encodeURIComponent(notice.surname)}-${encodeURIComponent(notice.notice_number)}`}>
+                                    <div className="img-div">
+                                      <img
+                                         src={`${import.meta.env.VITE_API_URL}${notice.frist_image.slice(7).replace(/\\/g, '/')}`} // Fallback to default if no image
+                                        alt={notice.name}
+                                        className="card-img"
+                                      />
+                                    </div>
+                                    <div className="card-text">
+                                      <h3 className="card-name">{notice.name}</h3>
+                                      <p className="card-text">{notice.town + " "+ notice.county}</p>
+                                    </div>
+                                    </Link>
+                                  </div>
                     </div>
                   ))}
                 </div>
@@ -255,17 +273,24 @@ const DeathNotice = () => {
         ) : (
           <div className="table-responsive">
             <table className="table table-hover align-middle">
-              <thead className="table-light">
+            <thead className="table-light">
                 <tr>
-                  <th className="ps-4">Name</th>
-                  <th>Town</th>
-                  <th>County</th>
-
-                  <th className="pe-4">Published</th>
+                  <th className="ps-4" onClick={() => handleSort("name")}>
+                    Name {sortConfig.key === "name" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th onClick={() => handleSort("town")}>
+                    Town {sortConfig.key === "town" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th onClick={() => handleSort("county")}>
+                    County {sortConfig.key === "county" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="pe-4" onClick={() => handleSort("createdAt")}>
+                    Published {sortConfig.key === "createdAt" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {notices.map(notice => (
+                {sortedNotices.map((notice) => (
                   <tr key={notice.id} className="transition-all">
                     <td className="ps-4 fw-medium">{notice.name}</td>
                     <td>{notice.town}</td>
@@ -274,7 +299,6 @@ const DeathNotice = () => {
                         {notice.county}
                       </span>
                     </td>
-
                     <td className="pe-4 text-muted">
                       {new Date(notice.createdAt).toLocaleDateString()}
                     </td>

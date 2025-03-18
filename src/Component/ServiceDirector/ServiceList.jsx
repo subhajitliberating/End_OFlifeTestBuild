@@ -95,11 +95,11 @@ const ServiceList = ({ token, role }) => {
                           <div className="serv_text">
                             <span>{service.business_type}</span> {/* Business Type */}
                             <h2>{service.business_name}</h2> {/* Business Name */}
-                            <ul>
-                              <li><IoLocationSharp size={20} style={{
-                                margin: '2px'
-                              }} />{service.location_details}</li> {/* Location Details */}
-                            </ul>
+                                                   <ul>
+                                                     <li className="cus-li-loction"> <IoLocationSharp size={24} style={{
+                                                      
+                                                     }}/><div>{service.location_details}</div></li>
+                                                   </ul>
                           </div>
                           <div className="serv_details">
                             <ul>

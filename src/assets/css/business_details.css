@@ -47,3 +47,127 @@
 .link_btn span{font-family: var(--iconfont); font-size: 37px; line-height: 30px; transition: all 0.3s ease-in;}
 .link_btn:hover{background-color: #000; color:#fff; transition: all 0.3s ease-in;}
 .link_btn:hover span{color: #fff; transition: all 0.3s ease-in;}
+
+
+@media (max-width: 1200px) {
+    .business_details_box {
+        padding: 40px 50px;
+    }
+
+    .add_service {
+        padding: 50px 100px;
+    }
+
+    .link_btn {
+        width: 80%;
+    }
+}
+
+@media (max-width: 992px) {
+    .heading_page h1 {
+        font-size: 45px;
+    }
+
+    .business_details_box {
+        padding: 30px 40px;
+    }
+
+    .business_deatils p {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .contact_info {
+        padding-left: 30px;
+    }
+
+    .add_service {
+        padding: 40px 80px;
+    }
+
+    .link_btn {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .heading_page h1 {
+        font-size: 35px;
+    }
+
+    .business_details_box {
+        padding: 20px 30px;
+    }
+
+    .business_deatils p {
+        font-size: 25px;
+        line-height: 35px;
+    }
+
+    .contact_info {
+        padding-left: 0px;
+        border-left: none;
+        margin-top: 20px;
+    }
+
+    .add_service {
+        padding: 30px 50px;
+    }
+
+    .link_btn {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .link_btn span {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .heading_page h1 {
+        font-size: 28px;
+    }
+
+    .business_details_box {
+        padding: 15px 20px;
+    }
+
+    .business_deatils p {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .contact_info ul li a {
+        font-size: 14px;
+    }
+
+    .add_service {
+        padding: 20px 30px;
+    }
+
+    .add_service h3 {
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+    .add_service p {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .link_btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .link_btn span {
+        font-size: 25px;
+    }
+}
+
+.cus-li-loction{
+    display: flex ;
+    flex-direction: row;
+    align-items: center;
+}
